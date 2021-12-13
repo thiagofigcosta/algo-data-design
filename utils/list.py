@@ -25,6 +25,13 @@ def sequential_int_list(size, start_with=0):
     return list(range(start_with, size + start_with))
 
 
+def sequential_stepped_int_list(size, step, start_with=0):
+    out = []
+    for i in range(start_with, size + start_with, 1):
+        out.append(i * step)
+    return out
+
+
 def shuffle_list(array):
     rd.shuffle(array)
 
