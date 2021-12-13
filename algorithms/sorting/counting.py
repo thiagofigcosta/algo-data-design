@@ -15,12 +15,12 @@ def sort(array):
     count = [0] * count_array_length
     # count occurrences
     for el in array:
-        count[el + smallest_number] += 1
+        count[el - smallest_number] += 1
     # compute initial positions
     for i in range(1, len(count), 1):
         count[i] += count[i - 1]
     # assign positions
     array_copy = array.copy()
     for el in array_copy:
-        array[count[el + smallest_number] - 1] = el
-        count[el + smallest_number] -= 1
+        array[count[el - smallest_number] - 1] = el
+        count[el - smallest_number] -= 1

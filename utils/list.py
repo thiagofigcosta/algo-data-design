@@ -7,7 +7,7 @@ def swap_elements(array, i, j):
     array[j] = holder
 
 
-def random_int_list(size, lower_limit, upper_limit):
+def random_int_list(size, lower_limit=-65535, upper_limit=65535):
     random_list = []
     for _ in range(size):
         n = rd.randint(lower_limit, upper_limit)

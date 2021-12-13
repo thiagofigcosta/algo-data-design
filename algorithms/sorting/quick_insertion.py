@@ -30,7 +30,7 @@ def _insertion_sort(array, left, right):
 
 
 def _sort_recursive(array, left, right, pivot_method, insertion_threshold):
-    if right - left < 50:
+    if right - left < insertion_threshold:
         _insertion_sort(array, left, right)
     else:
         pivot = _choose_pivot(array, left, right, method=pivot_method)

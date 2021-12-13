@@ -104,7 +104,7 @@ class SortingTest(unittest.TestCase):
         self.assertEqual(expected, to_sort)
 
     def test_bogo_sort(self, *args, **kwargs):
-        patience_length = 6
+        patience_length = sorting.bogo.MAXIMUM_FAST_SORTING_SIZE
         expected = u_list.sequential_int_list(patience_length)
         to_sort = expected.copy()
         u_list.shuffle_list(to_sort)

@@ -24,9 +24,9 @@ def sort(array, pivot_method=PivotMethod.MEDIAN, insertion_threshold=50):
 
 
 def _sort_recursive(array, left, right, depth, pivot_method, insertion_threshold):
-    if right - left < 50:
+    if right - left < insertion_threshold:
         _insertion_sort(array, left, right)
-    elif depth == 0:
+    elif depth <= 0:
         to_sort = array[left:right + 1]
         heap_sort(to_sort)
         for i, el in enumerate(to_sort):

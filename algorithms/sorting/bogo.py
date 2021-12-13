@@ -1,5 +1,7 @@
 import utils.list as u_list
 
+MAXIMUM_FAST_SORTING_SIZE = 6
+
 
 def sort(array):
     """

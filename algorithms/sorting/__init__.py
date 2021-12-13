@@ -14,6 +14,15 @@ class QuickSortPivotMethod(Enum):
     def __str__(self):
         return self.name
 
+    def __eq__(self, other):
+        # https://bugs.python.org/issue30545
+        if not isinstance(other, Enum):
+            return False
+        self_dict = self.__dict__
+        other_dict = other.__dict__
+        return self_dict['_value_'] == other_dict['_value_'] and str(self_dict['__objclass__']) == str(
+            other_dict['__objclass__'])
+
 
 class BubbleSortMethod(Enum):
     OPTIMUM = enum_auto()
@@ -25,6 +34,15 @@ class BubbleSortMethod(Enum):
 
     def __str__(self):
         return self.name
+
+    def __eq__(self, other):
+        # https://bugs.python.org/issue30545
+        if not isinstance(other, Enum):
+            return False
+        self_dict = self.__dict__
+        other_dict = other.__dict__
+        return self_dict['_value_'] == other_dict['_value_'] and str(self_dict['__objclass__']) == str(
+            other_dict['__objclass__'])
 
 
 from .intro import sort as sort
