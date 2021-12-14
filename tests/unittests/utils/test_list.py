@@ -1,6 +1,6 @@
 import unittest
 
-import utils.list as u_list
+import algo_data_design.utils.list as u_list
 
 
 class HeapTest(unittest.TestCase):

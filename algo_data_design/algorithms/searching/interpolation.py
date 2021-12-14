@@ -1,4 +1,4 @@
-from algorithms import sorting
+from algo_data_design.algorithms import sorting
 
 
 def search(array, to_find, already_sorted=True):

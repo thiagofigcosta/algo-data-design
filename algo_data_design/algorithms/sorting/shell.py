@@ -1,4 +1,4 @@
-import utils.list as u_list
+import algo_data_design.utils.list as u_list
 
 
 # TODO implement other gap sequences for shell sort instead of the original (n/2, n/4, n/8...)

@@ -1,7 +1,7 @@
 import unittest
 
-import data_structures.heap as heap
-import utils.list as u_list
+import algo_data_design.utils.list as u_list
+from algo_data_design.data_structures import heap
 
 
 class HeapTest(unittest.TestCase):

@@ -1,4 +1,4 @@
-import utils.list as u_list
+import algo_data_design.utils.list as u_list
 
 
 def build_min_max_heap(array, min_heap=False):

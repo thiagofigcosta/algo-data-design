@@ -1,7 +1,7 @@
 import unittest
 
-import algorithms.sorting as sorting
-import utils.list as u_list
+import algo_data_design.algorithms.sorting as sorting
+import algo_data_design.utils.list as u_list
 
 
 class SortingTest(unittest.TestCase):

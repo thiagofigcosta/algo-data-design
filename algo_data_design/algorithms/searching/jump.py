@@ -1,6 +1,7 @@
 import math
 
-from algorithms.searching.linear import search as linear_search, search_with_hits as linear_search_with_hits
+from algo_data_design.algorithms.searching.linear import search as linear_search, \
+    search_with_hits as linear_search_with_hits
 
 
 def search(array, to_find, start=0):

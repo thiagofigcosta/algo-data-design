@@ -1,10 +1,10 @@
 import math
 
-import utils.list as u_list
-from algorithms.sorting import QuickSortPivotMethod as PivotMethod
-from algorithms.sorting.heap import sort as heap_sort
-from algorithms.sorting.quick import _choose_pivot
-from algorithms.sorting.quick_insertion import _insertion_sort
+import algo_data_design.utils.list as u_list
+from algo_data_design.algorithms.sorting import QuickSortPivotMethod as PivotMethod
+from algo_data_design.algorithms.sorting.heap import sort as heap_sort
+from algo_data_design.algorithms.sorting.quick import _choose_pivot
+from algo_data_design.algorithms.sorting.quick_insertion import _insertion_sort
 
 
 def sort(array, pivot_method=PivotMethod.MEDIAN, insertion_threshold=50):

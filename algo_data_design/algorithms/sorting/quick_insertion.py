@@ -1,6 +1,6 @@
-import utils.list as u_list
-from algorithms.sorting import QuickSortPivotMethod as PivotMethod
-from algorithms.sorting.quick import _choose_pivot
+import algo_data_design.utils.list as u_list
+from algo_data_design.algorithms.sorting import QuickSortPivotMethod as PivotMethod
+from algo_data_design.algorithms.sorting.quick import _choose_pivot
 
 
 def sort(array, pivot_method=PivotMethod.MEDIAN, insertion_threshold=50):

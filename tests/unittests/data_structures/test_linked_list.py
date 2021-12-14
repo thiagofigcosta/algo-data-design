@@ -1,6 +1,6 @@
 import unittest
 
-from data_structures import LinkedList, LinkedListNode
+from algo_data_design.data_structures import LinkedList, LinkedListNode
 
 
 class LinkedListTest(unittest.TestCase):

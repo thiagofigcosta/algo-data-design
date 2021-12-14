@@ -1,4 +1,4 @@
-from algorithms.sorting.intro import sort as intro_sort
+from algo_data_design.algorithms.sorting.intro import sort as intro_sort
 
 
 def sort(array, amount_of_buckets=20):

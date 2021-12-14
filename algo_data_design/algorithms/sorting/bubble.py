@@ -1,5 +1,5 @@
-import utils.list as u_list
-from algorithms.sorting import BubbleSortMethod as Method
+import algo_data_design.utils.list as u_list
+from algo_data_design.algorithms.sorting import BubbleSortMethod as Method
 
 
 def sort(array, method=Method.OPTIMUM):

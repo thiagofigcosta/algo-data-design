@@ -1,6 +1,6 @@
 import unittest
 
-from algorithms import searching
+from algo_data_design.algorithms import searching
 
 
 class SearchingTest(unittest.TestCase):
