@@ -1,6 +1,6 @@
 import sys
 
-try:  # if Python >= 3.3 use new high-res counter
+try:  # if Python >= 3.3 uses the new high-res counter and keep running even when thread sleeps
     from time import perf_counter as _time_time
 except ImportError:  # else select highest available resolution counter
     if sys.platform[:3] == 'win':

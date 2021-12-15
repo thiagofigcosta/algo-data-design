@@ -41,14 +41,68 @@ class LinkedList(object):
     def __init__(self, head_node=None):
         self.head = head_node
 
-    def __add__(self, node):
-        self.add(node)
+    def sort(self):
+        from algo_data_design.algorithms.sorting import merge_sort_linked_list
+        merge_sort_linked_list(self)
 
-    def add(self, node):
-        if self.head is None:
+    def __hare_and_tortoise(self, detect_circle=True):
+        if self.is_empty():
+            if detect_circle:
+                return False
+            else:
+                return None
+        if self.is_one_sized():
+            if detect_circle:
+                return False
+            else:
+                return self.head
+        tortoise = self.head
+        hare = self.head.next
+        while hare is not None and hare.next is not None:
+            if detect_circle and hare is tortoise:
+                return True
+            tortoise = tortoise.next
+            hare = hare.next.next
+        if detect_circle:
+            return False
+        else:
+            return tortoise
+
+    def has_circle(self):
+        return self.__hare_and_tortoise(True)
+
+    def get_middle_node(self):
+        return self.__hare_and_tortoise(False)
+
+    def is_empty(self):
+        return self.head is None
+
+    def is_one_sized(self):
+        return self.head.next is None
+
+    def add_at(self, at, node):
+        if self.is_empty():
+            if at != 0:
+                raise Exception(f'Invalid position `{at}`')
             self.head = node
             return
-        if self.head.next is None:
+        previous = None
+        current = self.head
+        j = 0
+        while j < at and current.next is not None:
+            previous = current
+            current = current.next
+            j += 1
+        if at != j:
+            raise Exception(f'Invalid position `{at}`')
+        previous.next = node
+        node.next = current
+
+    def add(self, node):
+        if self.is_empty():
+            self.head = node
+            return
+        if self.is_one_sized():
             self.head.next = node
             return
         current_node = self.head.next
@@ -56,30 +110,76 @@ class LinkedList(object):
             current_node = current_node.next
         current_node.next = node
 
-    def pop_first(self):
-        if self.head is None:
-            return None
+    def __get_or_pop_at(self, i, pop=False, get_node=False):
+        if self.is_empty():
+            raise Exception(f'Invalid position `{i}`')
+        if i == 0:
+            if pop:
+                return self.pop_first(get_node=get_node)
+            else:
+                return self.head.data
+        previous = None
+        current = self.head
+        j = 0
+        while j < i and current.next is not None:
+            previous = current
+            current = current.next
+            j += 1
+        if i != j:
+            raise Exception(f'Invalid position `{i}`')
+        if pop:
+            previous.next = current.next
+        if get_node:
+            return current
+        else:
+            return current.data
+
+    def pop_at(self, i, get_node=False):
+        return self.__get_or_pop_at(i, True, get_node=get_node)
+
+    def get_at(self, i, get_node=False):
+        return self.__get_or_pop_at(i, False, get_node=get_node)
+
+    def pop_first(self, get_node=False):
+        if self.is_empty():
+            raise Exception('There is nothing to pop')
         value = self.head.data
         self.head = self.head.next
-        return value
+        if get_node:
+            return self.head
+        else:
+            return value
 
-    def pop_last(self):
-        if self.head is None:
-            return None
-        if self.head.next is None:
-            return self.pop_first()
+    def __get_or_pop_last(self, pop=False, get_node=False):
+        if self.is_empty():
+            raise Exception('There is nothing to pop')
+        if self.is_one_sized():
+            if pop:
+                return self.pop_first(get_node=get_node)
+            else:
+                return self.get_at(0, get_node=get_node)
         previous_node = self.head
         current_node = self.head.next
         while current_node.next is not None:
             previous_node = current_node
             current_node = current_node.next
-        previous_node.next = None
-        return current_node.data
+        if pop:
+            previous_node.next = None
+        if get_node:
+            return current_node
+        else:
+            return current_node.data
+
+    def get_last(self, get_node=False):
+        return self.__get_or_pop_last(False, get_node=get_node)
+
+    def pop_last(self, get_node=False):
+        return self.__get_or_pop_last(True, get_node=get_node)
 
     def __len__(self):
-        if self.head is None:
+        if self.is_empty():
             return 0
-        if self.head.next is None:
+        if self.is_one_sized():
             return 1
         count = 1
         current_node = self.head.next
@@ -96,7 +196,7 @@ class LinkedList(object):
     def reverse(self):
         # a -> b -> c -> d -> e -> None
         # e -> d -> c -> b -> a -> None
-        if self.head is None or self.head.next is None:
+        if self.is_empty() or self.is_one_sized():
             return
         current_node = self.head
         next_node = current_node.next
@@ -119,7 +219,7 @@ class LinkedList(object):
 
     def _ll_copy(self, deep=False):
         out = LinkedList()
-        if self.head is None:
+        if self.is_empty():
             return out
         for node in self:
             if deep:
@@ -150,6 +250,15 @@ class LinkedList(object):
                 return False
             current_self = current_self.next
             current_other = current_other.next
+
+    def __str__(self):
+        string = ''
+        size = len(self)
+        for i, node in enumerate(self):
+            string += str(node)
+            if i + 1 < size:
+                string += ' -> '
+        return string
 
 
 class LinkedListIterator:

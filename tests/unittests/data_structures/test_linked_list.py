@@ -1,5 +1,6 @@
 import unittest
 
+import algo_data_design.utils.list as u_list
 from algo_data_design.data_structures import LinkedList, LinkedListNode
 
 
@@ -11,9 +12,17 @@ class LinkedListTest(unittest.TestCase):
             self.linked_list_1.add(LinkedListNode(i))
             self.linked_list_1_values.append(i)
 
-    def test_iterator_and_add(self, *args, **kwargs):
+    def test_iterator_and_add_and_get(self, *args, **kwargs):
         for i, node in enumerate(self.linked_list_1):
             self.assertEqual(self.linked_list_1_values[i], node.data)
+        linked_list = self.linked_list_1.copy()
+        linked_list_values = self.linked_list_1_values.copy()
+        linked_list_values.insert(3, 8888)
+        linked_list.add_at(3, LinkedListNode(8888))
+        for i, node in enumerate(linked_list):
+            self.assertEqual(linked_list_values[i], node.data)
+        for i in range(len(linked_list_values)):
+            self.assertEqual(linked_list_values[i], linked_list.get_at(i))
 
     def test_copy(self, *args, **kwargs):
         linked_list = self.linked_list_1.copy()
@@ -38,6 +47,11 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(len(self.linked_list_1_values) - 1, len(linked_list))
         self.assertEqual(self.linked_list_1_values[-1], linked_list.pop_last())
         self.assertEqual(len(self.linked_list_1_values) - 2, len(linked_list))
+        self.assertEqual(3, linked_list.pop_at(2))
+        self.assertEqual(4, linked_list.pop_at(2))
+        self.assertEqual(len(self.linked_list_1_values) - 4, len(linked_list))
+        self.assertEqual(8, linked_list.pop_at(5))
+        self.assertRaises(Exception, linked_list.pop_at, 5)
 
     def test_reverse(self, *args, **kwargs):
         reversed_linked_list = self.linked_list_1.copy()
@@ -46,6 +60,23 @@ class LinkedListTest(unittest.TestCase):
         reversed_values.reverse()
         for i, node in enumerate(reversed_linked_list):
             self.assertEqual(reversed_values[i], node.data)
+
+    def test_circle(self, *args, **kwargs):
+        linked_list = self.linked_list_1.copy()
+        self.assertFalse(linked_list.has_circle())
+        last_node = linked_list.get_at(len(linked_list) - 1, get_node=True)
+        last_node.next = linked_list.get_at(4, get_node=True)
+        self.assertTrue(linked_list.has_circle())
+
+    def test_sort(self, *args, **kwargs):
+        linked_list_values = u_list.random_int_list(300)
+        linked_list = LinkedList()
+        for el in linked_list_values:
+            linked_list.add(LinkedListNode(el))
+        linked_list_values.sort()
+        linked_list.sort()
+        for i, node in enumerate(linked_list):
+            self.assertEqual(linked_list_values[i], node.data)
 
 
 if __name__ == '__main__':

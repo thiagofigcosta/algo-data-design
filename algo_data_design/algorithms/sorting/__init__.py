@@ -57,6 +57,7 @@ from .insertion import sort as insertion_sort
 from .insertion import insert as insert_sorted
 from .shell import sort as shell_sort
 from .merge import sort as merge_sort
+from .merge import sort_linked_list as merge_sort_linked_list
 from .radix import sort as radix_sort
 from .selection import sort as selection_sort
 from .bucket import sort as bucket_sort
