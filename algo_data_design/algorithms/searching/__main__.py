@@ -1,8 +1,8 @@
 from matplotlib import pyplot as plt
 
 import algo_data_design.utils.list as u_list
-import algo_data_design.utils.number as u_number
 import algo_data_design.utils.plot as u_plot
+import algo_data_design.utils.random as u_number
 from algo_data_design.algorithms import searching
 from algo_data_design.utils import time as u_time
 

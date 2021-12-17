@@ -25,11 +25,11 @@ class Node(object):
     def __copy__(self):
         return self.copy()
 
-    def deepcopy(self):
+    def deepcopy(self, nested_deep_copy=False):
         for copy_func in ('__deepcopy__', 'deepcopy', '__copy__', 'copy'):
             copy_func_func = getattr(self.data, copy_func, None)
             if callable(copy_func_func):
-                return Node(copy_func_func(self.data), self.next)
+                return Node(copy_func_func(self.data), self.next.deepcopy() if nested_deep_copy else self.next)
         return self.copy()
 
     def copy(self):
@@ -45,7 +45,7 @@ class LinkedList(object):
         from algo_data_design.algorithms.sorting import merge_sort_linked_list
         merge_sort_linked_list(self)
 
-    def __hare_and_tortoise(self, detect_circle=True):
+    def _hare_and_tortoise(self, detect_circle=True):
         if self.is_empty():
             if detect_circle:
                 return False
@@ -69,10 +69,10 @@ class LinkedList(object):
             return tortoise
 
     def has_circle(self):
-        return self.__hare_and_tortoise(True)
+        return self._hare_and_tortoise(True)
 
     def get_middle_node(self):
-        return self.__hare_and_tortoise(False)
+        return self._hare_and_tortoise(False)
 
     def is_empty(self):
         return self.head is None
@@ -110,7 +110,7 @@ class LinkedList(object):
             current_node = current_node.next
         current_node.next = node
 
-    def __get_or_pop_at(self, i, pop=False, get_node=False):
+    def _get_or_pop_at(self, i, pop=False, get_node=False):
         if self.is_empty():
             raise Exception(f'Invalid position `{i}`')
         if i == 0:
@@ -135,10 +135,13 @@ class LinkedList(object):
             return current.data
 
     def pop_at(self, i, get_node=False):
-        return self.__get_or_pop_at(i, True, get_node=get_node)
+        return self._get_or_pop_at(i, True, get_node=get_node)
 
     def get_at(self, i, get_node=False):
-        return self.__get_or_pop_at(i, False, get_node=get_node)
+        return self._get_or_pop_at(i, False, get_node=get_node)
+
+    def __getitem__(self, item):
+        return self.get_at(item, get_node=True)
 
     def pop_first(self, get_node=False):
         if self.is_empty():
@@ -150,7 +153,7 @@ class LinkedList(object):
         else:
             return value
 
-    def __get_or_pop_last(self, pop=False, get_node=False):
+    def _get_or_pop_last(self, pop=False, get_node=False):
         if self.is_empty():
             raise Exception('There is nothing to pop')
         if self.is_one_sized():
@@ -171,10 +174,10 @@ class LinkedList(object):
             return current_node.data
 
     def get_last(self, get_node=False):
-        return self.__get_or_pop_last(False, get_node=get_node)
+        return self._get_or_pop_last(False, get_node=get_node)
 
     def pop_last(self, get_node=False):
-        return self.__get_or_pop_last(True, get_node=get_node)
+        return self._get_or_pop_last(True, get_node=get_node)
 
     def __len__(self):
         if self.is_empty():

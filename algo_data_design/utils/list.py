@@ -1,5 +1,7 @@
 import random as rd
 
+import algo_data_design.utils.random as u_random
+
 
 def swap_elements(array, i, j):
     holder = array[i]
@@ -8,15 +10,11 @@ def swap_elements(array, i, j):
 
 
 def random_int_list(size, lower_limit=-65535, upper_limit=65535):
-    random_list = []
-    for _ in range(size):
-        n = rd.randint(lower_limit, upper_limit)
-        random_list.append(n)
-    return random_list
+    return u_random.random_int_list(size, lower_limit=lower_limit, upper_limit=upper_limit)
 
 
 def random_float_list(size):
-    return [rd.random() for _ in range(size)]
+    return u_random.random_float_list(size)
 
 
 def sequential_int_list(size, start_with=0):
@@ -41,3 +39,10 @@ def is_sorted(array):
         if array[i] > array[i + 1]:
             return False
     return True
+
+
+def conditional_reversed(array, reverse=False):
+    if reverse:
+        return reversed(array)
+    else:
+        return array

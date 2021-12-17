@@ -37,7 +37,10 @@ class PriorityQueue(object):
         return self.copy()
 
     def is_full(self):
-        return self._limit is not None and len(self._array) >= self._limit
+        return self._limit is not None and len(self) >= self._limit
+
+    def is_empty(self):
+        return len(self) == 0
 
     def copy(self):
         out = PriorityQueue()

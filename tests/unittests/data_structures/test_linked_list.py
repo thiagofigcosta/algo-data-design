@@ -33,7 +33,6 @@ class LinkedListTest(unittest.TestCase):
         linked_list_to_change.head.data = 50
         self.assertEqual(50, linked_list_to_change.head.data)
         self.assertEqual(50, reference_to_linked_list_to_change.head.data)
-        linked_list_to_change.head.data = 50
         self.assertNotEqual(50, linked_list.head.data)
 
     def test_len(self, *args, **kwargs):

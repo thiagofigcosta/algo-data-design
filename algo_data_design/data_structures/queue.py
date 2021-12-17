@@ -1,8 +1,10 @@
 class Queue(object):
     # FIFO (First In, First Out) Data structure
-    def __init__(self, size_limit=None):
+    def __init__(self, first_el=None, size_limit=None):
         self._array = []
         self._limit = size_limit
+        if first_el is not None:
+            self.append(first_el)
 
     def append(self, el):
         if not self.is_full():
@@ -22,7 +24,10 @@ class Queue(object):
         return self.copy()
 
     def is_full(self):
-        return self._limit is not None and len(self._array) >= self._limit
+        return self._limit is not None and len(self) >= self._limit
+
+    def is_empty(self):
+        return len(self) == 0
 
     def copy(self):
         out = Queue()

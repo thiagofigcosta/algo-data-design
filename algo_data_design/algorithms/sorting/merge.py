@@ -31,7 +31,7 @@ def sort_linked_list(ll):
     sort_linked_list(ll1)
     sort_linked_list(ll2)
     # merge
-    ll.head = __merge_linked_list(ll1, ll2).head
+    ll.head = _merge_linked_list(ll1, ll2).head
 
 
 def _sort_recursive(array):
@@ -68,7 +68,7 @@ def _merge(array, left_partition, right_partition):
         dst_itr += 1
 
 
-def __add_to_ll_and_retrieve_last(ll, last_ll_node, node_to_add):
+def _add_to_ll_and_retrieve_last(ll, last_ll_node, node_to_add):
     if last_ll_node is None:
         ll.add(node_to_add)
         return node_to_add
@@ -77,7 +77,7 @@ def __add_to_ll_and_retrieve_last(ll, last_ll_node, node_to_add):
         return node_to_add
 
 
-def __merge_linked_list(ll1, ll2):
+def _merge_linked_list(ll1, ll2):
     ll = LinkedList()
     ll_last = None
     cur_1 = ll1.head
@@ -85,16 +85,16 @@ def __merge_linked_list(ll1, ll2):
     # merging sorted arrays
     while cur_1 is not None and cur_2 is not None:
         if cur_1 < cur_2:
-            ll_last = __add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
+            ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
             cur_1 = cur_1.next
         else:
-            ll_last = __add_to_ll_and_retrieve_last(ll, ll_last, cur_2)
+            ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_2)
             cur_2 = cur_2.next
     # moving the remainders
     while cur_1 is not None:
-        ll_last = __add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
+        ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
         cur_1 = cur_1.next
     while cur_2 is not None:
-        ll_last = __add_to_ll_and_retrieve_last(ll, ll_last, cur_2)
+        ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_2)
         cur_2 = cur_2.next
     return ll

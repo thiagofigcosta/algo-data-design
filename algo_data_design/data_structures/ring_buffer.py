@@ -7,13 +7,13 @@ class RingBuffer(object):
         self._read_pointer = 0
         self._cur_size = 0
 
-    def __circular_sum(self, base, to_add=1):
+    def _circular_sum(self, base, to_add=1):
         return (base + to_add) % self._size
 
     def append(self, el, override=True):
         if override or len(self) < self._size:
             self._array[self._write_pointer] = el
-            self._write_pointer = self.__circular_sum(self._write_pointer)
+            self._write_pointer = self._circular_sum(self._write_pointer)
             self._cur_size = min(self._cur_size + 1, self._size)
             return True
         return False
@@ -24,16 +24,19 @@ class RingBuffer(object):
     def pop(self):
         if len(self) > 0:
             el = self.get()
-            self._read_pointer = self.__circular_sum(self._read_pointer)
+            self._read_pointer = self._circular_sum(self._read_pointer)
             self._cur_size = max(self._cur_size - 1, 0)
             return el
-        return None
+        raise Exception('Empty buffer')
 
     def get(self, i=0):
         if self._read_pointer != -1 and len(self) > 0 and i < len(self):
-            i = self.__circular_sum(self._read_pointer, i)
+            i = self._circular_sum(self._read_pointer, i)
             return self._array[i]
-        return None
+        raise Exception(f'Invalid position `{i}`')
+
+    def __getitem__(self, item):
+        return self.get(item)
 
     def __copy__(self):
         return self.copy()

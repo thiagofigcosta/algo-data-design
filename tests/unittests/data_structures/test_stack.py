@@ -21,7 +21,7 @@ class StackTest(unittest.TestCase):
         self.assertFalse(s.is_full())
 
     def test_append_pop_len_limited_size(self, *args, **kwargs):
-        s = Stack(2)
+        s = Stack(size_limit=2)
         self.assertEqual(0, len(s))
         s.append(10)
         self.assertEqual(1, len(s))

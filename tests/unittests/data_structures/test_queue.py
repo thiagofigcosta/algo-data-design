@@ -21,7 +21,7 @@ class QueueTest(unittest.TestCase):
         self.assertFalse(q.is_full())
 
     def test_append_pop_len_limited_size(self, *args, **kwargs):
-        q = Queue(2)
+        q = Queue(size_limit=2)
         self.assertEqual(0, len(q))
         q.append(10)
         self.assertEqual(1, len(q))

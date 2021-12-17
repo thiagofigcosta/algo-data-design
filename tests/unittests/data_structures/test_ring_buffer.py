@@ -31,7 +31,7 @@ class RingBufferTest(unittest.TestCase):
 
     def test_ring_read_before_insert(self, *args, **kwargs):
         rb = RingBuffer(3)
-        self.assertIsNone(rb.pop())
+        self.assertRaises(Exception, rb.pop)
 
     def test_ring_no_override(self, *args, **kwargs):
         rb = RingBuffer(3)

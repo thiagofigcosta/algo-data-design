@@ -4,7 +4,7 @@ class Deque(object):
         self._array = []
         self._limit = size_limit
 
-    def __push(self, el, back=False):
+    def _push(self, el, back=False):
         if not self.is_full():
             if back:
                 self._array.append(el)
@@ -14,12 +14,12 @@ class Deque(object):
         return False
 
     def push_back(self, el):
-        return self.__push(el, back=True)
+        return self._push(el, back=True)
 
     def push_front(self, el):
-        return self.__push(el, back=False)
+        return self._push(el, back=False)
 
-    def __pop(self, back=False):
+    def _pop(self, back=False):
         if back:
             pos = -1
         else:
@@ -29,16 +29,19 @@ class Deque(object):
         return el
 
     def pop_back(self):
-        return self.__pop(back=True)
+        return self._pop(back=True)
 
     def pop_front(self):
-        return self.__pop(back=False)
+        return self._pop(back=False)
 
     def __copy__(self):
         return self.copy()
 
     def is_full(self):
-        return self._limit is not None and len(self._array) >= self._limit
+        return self._limit is not None and len(self) >= self._limit
+
+    def is_empty(self):
+        return len(self) == 0
 
     def copy(self):
         out = Deque()
