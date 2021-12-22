@@ -8,6 +8,8 @@ from algo_data_design.utils import time as u_time
 
 
 def searching_benchmark():
+    figure_width = 1920
+    figure_height = 1080
     benchmark_start_time = u_time.time()
     tests_per_array = 30
     step = 7
@@ -69,13 +71,13 @@ def searching_benchmark():
         plt.plot(array_sizes, results[0], 'o-', color=u_plot.get_plot_colour_by_index(i), label=algorithm)
     title = 'Searching algorithms benchmark'
     plt.title(title)
-    mng = plt.get_current_fig_manager()
-    mng.resize(2000, 1200)  # TODO magic
-    mng.canvas.manager.set_window_title(title)
     plt.xlabel("Array sizes")
     plt.ylabel("Time (s)")
     plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
-    plt.tight_layout(rect=[0, 0, 1, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    plt.tight_layout(rect=[0, 0, 1.08, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    mng = plt.get_current_fig_manager()
+    mng.canvas.manager.set_window_title(title)
+    mng.resize(figure_width, figure_height)
     plt.show(block=False)
 
     plt.figure()  # clear for next figure
@@ -84,13 +86,13 @@ def searching_benchmark():
         plt.plot(array_sizes, results[1], 'o-', color=u_plot.get_plot_colour_by_index(i), label=algorithm)
     title = 'Searching algorithms benchmark'
     plt.title(title)
-    mng = plt.get_current_fig_manager()
-    mng.resize(2000, 1200)  # TODO magic
-    mng.canvas.manager.set_window_title(title)
     plt.xlabel("Array sizes")
     plt.ylabel("Hits")
     plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
-    plt.tight_layout(rect=[0, 0, 1, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    plt.tight_layout(rect=[0, 0, 1.08, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    mng = plt.get_current_fig_manager()
+    mng.canvas.manager.set_window_title(title)
+    mng.resize(figure_width, figure_height)
     plt.show()
 
 

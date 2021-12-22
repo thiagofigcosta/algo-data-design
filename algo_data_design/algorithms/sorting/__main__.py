@@ -7,6 +7,8 @@ from algo_data_design.utils import time as u_time
 
 
 def sorting_benchmark():
+    figure_width = 1920
+    figure_height = 1080
     benchmark_start_time = u_time.time()
     array_sizes = (5, 10, 100, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 1000000)
     max_size_for_on2_algs = 10000
@@ -151,13 +153,13 @@ def sorting_benchmark():
     title = 'Sorting algorithms benchmark'
     plt.ylim([0, largest_value * 1.03])
     plt.title(title)
-    mng = plt.get_current_fig_manager()
-    mng.resize(2000, 1200)  # TODO magic
-    mng.canvas.manager.set_window_title(title)
     plt.xlabel("Array sizes")
     plt.ylabel("Time (s)")
     plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
-    plt.tight_layout(rect=[0, 0, 1, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    plt.tight_layout(rect=[0, 0, 1.08, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    mng = plt.get_current_fig_manager()
+    mng.canvas.manager.set_window_title(title)
+    mng.resize(figure_width, figure_height)
     plt.show(block=False)
 
     plt.figure()  # clear for next figure
@@ -167,13 +169,13 @@ def sorting_benchmark():
             plt.plot(array_sizes, results, 'o-', color=u_plot.get_plot_colour_by_index(i), label=algorithm)
     title = 'Fast sorting algorithms benchmark'
     plt.title(title)
-    mng = plt.get_current_fig_manager()
-    mng.resize(2000, 1200)  # TODO magic
-    mng.canvas.manager.set_window_title(title)
     plt.xlabel("Array sizes")
     plt.ylabel("Time (s)")
     plt.legend(loc='center left', bbox_to_anchor=(1.0, 0.5))
-    plt.tight_layout(rect=[0, 0, 1, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    plt.tight_layout(rect=[0, 0, 1.08, 1])  # plt.savefig("output.png", bbox_inches="tight")
+    mng = plt.get_current_fig_manager()
+    mng.canvas.manager.set_window_title(title)
+    mng.resize(figure_width, figure_height)
     plt.show()
 
 
