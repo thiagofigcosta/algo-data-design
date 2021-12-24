@@ -87,12 +87,21 @@ class TreeTest(unittest.TestCase):
         self.assertEqual(0, Tree().count())
 
     def test_find(self, *args, **kwargs):
-        for method in (False, True):
-            to_find = 5
-            found = self.tree_1.find(to_find, method)
-            self.assertEqual(to_find, found.data)
-            found = self.tree_1.find(5000, method)
-            self.assertIsNone(found)
+        to_find = 5
+        found = self.tree_1.find_bfs(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find_bfs(5000)
+        self.assertIsNone(found)
+
+        found = self.tree_1.find_dfs(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find_dfs(5000)
+        self.assertIsNone(found)
+
+        found = self.tree_1.find(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find(5000)
+        self.assertIsNone(found)
 
 
 if __name__ == '__main__':

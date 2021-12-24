@@ -18,6 +18,8 @@ class Node(object):
 
     def __eq__(self, other):
         # this function must be implemented in order to dict and set to work, so it cannot compare only data values
+        if not isinstance(other, Node):
+            return False
         return self._uuid == other._uuid
 
     def __hash__(self):
@@ -80,14 +82,25 @@ class BinaryTree(object):
         # mandatory to run bfs and dfs
         return self.root.get_next_nodes()
 
-    def find(self, el_data, depth=False):
-        from algo_data_design.algorithms.searching import dfs_itr_find, bfs_itr_find
-        if depth:
-            return dfs_itr_find(self, el_data)
-        else:
-            return bfs_itr_find(self, el_data)
+    def find_dfs(self, el_data):
+        from algo_data_design.algorithms.searching import dfs_itr_find
+        return dfs_itr_find(self, el_data)
 
-    def is_full_binary_tree(self):
+    def find_bfs(self, el_data):
+        return self.find(el_data)
+
+    def find(self, el_data):
+        """
+        Time complexity:
+            Best: O(1)
+            Average: O(h), where h is height of the tree
+            Worst: O(n), search in all nodes
+        Space complexity: O(n)
+        """
+        from algo_data_design.algorithms.searching import bfs_itr_find
+        return bfs_itr_find(self, el_data)
+
+    def is_full(self):
         # run dfs to check
         # has only 0 or two branches in every node
         if self.root is None:  # empty tree
@@ -96,10 +109,10 @@ class BinaryTree(object):
             return True
         if not self.root.is_full():  # has one branch only
             return False
-        return self.root.left.wrap_into_structure().is_full_binary_tree() and \
-               self.root.right.wrap_into_structure().is_full_binary_tree()
+        return self.root.left.wrap_into_structure().is_full() and \
+               self.root.right.wrap_into_structure().is_full()
 
-    def is_perfect_binary_tree(self, depth=None, cur_level=0):
+    def is_perfect(self, depth=None, cur_level=0):
         # run dfs to check
         # has two branches in every internal node, every leave must be in same level
         if self.root is None:  # empty tree
@@ -110,11 +123,11 @@ class BinaryTree(object):
             return depth == (cur_level + 1)  # check if leaves are at the end
         if not self.root.is_full():  # has one branch only
             return False
-        return self.root.left.wrap_into_structure().is_perfect_binary_tree(depth, cur_level + 1) and \
-               self.root.right.wrap_into_structure().is_perfect_binary_tree(
+        return self.root.left.wrap_into_structure().is_perfect(depth, cur_level + 1) and \
+               self.root.right.wrap_into_structure().is_perfect(
                    depth, cur_level + 1)
 
-    def is_complete_binary_tree(self, count=None, cur_index=0):
+    def is_complete(self, count=None, cur_index=0):
         # run dfs to check, the positions/indexes of the tree must be organizable in a heap structure
         # has only 0 or two branches in every node, the leaves must be filled from left to right,
         #       the last element is allowed to not have the right element
@@ -125,10 +138,30 @@ class BinaryTree(object):
         if cur_index >= count:  # constraint violated
             return False
         left_result = self.root.left is None or \
-                      self.root.left.wrap_into_structure().is_complete_binary_tree(count, 2 * cur_index + 1)
+                      self.root.left.wrap_into_structure().is_complete(count, 2 * cur_index + 1)
         right_result = self.root.right is None or \
-                       self.root.right.wrap_into_structure().is_complete_binary_tree(count, 2 * cur_index + 2)
+                       self.root.right.wrap_into_structure().is_complete(count, 2 * cur_index + 2)
         return left_result and right_result
+
+    def is_balanced(self):
+        # run dfs to check
+        if self.root is None:
+            return True
+        left_height = 0
+        if self.root.left is not None:
+            left_height = self.root.left.wrap_into_structure().get_height()
+
+        right_height = 0
+        if self.root.right is not None:
+            right_height = self.root.right.wrap_into_structure().get_height()
+
+        if abs(left_height - right_height) <= 1:
+            left_result = self.root.left is None or \
+                          self.root.left.wrap_into_structure().is_balanced()
+            right_result = self.root.right is None or \
+                           self.root.right.wrap_into_structure().is_balanced()
+            return left_result and right_result
+        return False
 
     def get_depth(self):
         # run a depth first search to count the deepness
@@ -234,7 +267,7 @@ class BinaryTree(object):
     def push_back(self, el_or_node):
         # run bfs to insert
         node_to_insert = el_or_node
-        if type(node_to_insert) is not Node:
+        if not isinstance(node_to_insert, Node):
             node_to_insert = Node(el_or_node)
         parent_node = self.first_non_full_node()
         if parent_node.left is None:
@@ -242,22 +275,27 @@ class BinaryTree(object):
         elif parent_node.right is None:
             parent_node.right = node_to_insert
 
-    def pop_back(self):
-        # run bfs to pop
+    def last_node_and_parent(self):
+        # run bfs to find
         visited = set()  # to avoid visiting the same twice
-        to_remove = (None, self.get_node())
-        to_visit = Queue(first_el=to_remove)
+        the_last = (self.get_node(), None)
+        to_visit = Queue(first_el=the_last)
         while len(to_visit) > 0:
-            parent, visiting = to_visit.pop()
+            visiting, parent = to_visit.pop()
             if visiting not in visited:  # visit just if not visited
                 visited.add(visiting)  # mark as visited
-                to_remove = (parent, visiting)  # visiting / updating to_remove
+                the_last = (visiting, parent)  # visiting / updating to_remove
                 for branch in visiting.get_next_nodes():
-                    to_visit.push((visiting, branch))  # add children to visit
-        parent_node, node_to_remove = to_remove
+                    to_visit.push((branch, visiting))  # add children to visit
+        return the_last
+
+    def pop_back(self):
+        # run bfs to pop
+        node_to_remove, parent_node = self.last_node_and_parent()
         if parent_node is None:
             self.root = None
         else:
+            # the last node never has children
             if parent_node.left == node_to_remove:
                 parent_node.left = None
             else:

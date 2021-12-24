@@ -7,5 +7,6 @@ from .stack import Stack
 pass  # the following imports must be below
 
 from .binary_tree import BinaryTree, Node as BinaryTreeNode
+from .binary_search_tree import BinarySearchTree
 from .linked_list import LinkedList, Node as LinkedListNode
 from .tree import Tree, Forest, Node as TreeNode

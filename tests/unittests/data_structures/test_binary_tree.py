@@ -92,16 +92,16 @@ class TreeTest(unittest.TestCase):
         self.assertEqual(expected, dfs_out)
 
     def test_full_binary_tree(self, *args, **kwargs):
-        self.assertTrue(self.tree_1.is_full_binary_tree())
-        self.assertTrue(self.tree_2.is_full_binary_tree())
-        self.assertFalse(self.tree_3.is_full_binary_tree())
-        self.assertTrue(self.tree_4.is_full_binary_tree())
+        self.assertTrue(self.tree_1.is_full())
+        self.assertTrue(self.tree_2.is_full())
+        self.assertFalse(self.tree_3.is_full())
+        self.assertTrue(self.tree_4.is_full())
 
     def test_perfect_binary_tree(self, *args, **kwargs):
-        self.assertTrue(self.tree_1.is_perfect_binary_tree())
-        self.assertTrue(self.tree_2.is_perfect_binary_tree())
-        self.assertFalse(self.tree_3.is_perfect_binary_tree())
-        self.assertFalse(self.tree_4.is_perfect_binary_tree())
+        self.assertTrue(self.tree_1.is_perfect())
+        self.assertTrue(self.tree_2.is_perfect())
+        self.assertFalse(self.tree_3.is_perfect())
+        self.assertFalse(self.tree_4.is_perfect())
 
     def test_push_back(self, *args, **kwargs):
         tree = self.tree_2.copy()
@@ -129,18 +129,33 @@ class TreeTest(unittest.TestCase):
         self.assertEqual(expected_tree, dfs_out)
 
     def test_complete_binary_tree(self, *args, **kwargs):
-        self.assertTrue(self.tree_1.is_complete_binary_tree())
-        self.assertTrue(self.tree_2.is_complete_binary_tree())
-        self.assertTrue(self.tree_3.is_complete_binary_tree())
-        self.assertFalse(self.tree_4.is_complete_binary_tree())
+        self.assertTrue(self.tree_1.is_complete())
+        self.assertTrue(self.tree_2.is_complete())
+        self.assertTrue(self.tree_3.is_complete())
+        self.assertFalse(self.tree_4.is_complete())
+
+    def test_balanced_binary_tree(self, *args, **kwargs):
+        self.assertTrue(self.tree_1.is_balanced())
+        self.assertTrue(self.tree_2.is_balanced())
+        self.assertTrue(self.tree_3.is_balanced())
+        self.assertTrue(self.tree_4.is_balanced())
 
     def test_find(self, *args, **kwargs):
-        for method in (False, True):
-            to_find = 5
-            found = self.tree_1.find(to_find, method)
-            self.assertEqual(to_find, found.data)
-            found = self.tree_1.find(5000, method)
-            self.assertIsNone(found)
+        to_find = 5
+        found = self.tree_1.find_bfs(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find_bfs(5000)
+        self.assertIsNone(found)
+
+        found = self.tree_1.find_dfs(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find_dfs(5000)
+        self.assertIsNone(found)
+
+        found = self.tree_1.find(to_find)
+        self.assertEqual(to_find, found.data)
+        found = self.tree_1.find(5000)
+        self.assertIsNone(found)
 
 
 if __name__ == '__main__':

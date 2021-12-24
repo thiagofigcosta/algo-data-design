@@ -75,12 +75,16 @@ class Tree(object):
     def to_forest(self):
         return Forest([Tree(root=new_root) for new_root in self.root.branches])
 
-    def find(self, el_data, depth=False):
-        from algo_data_design.algorithms.searching import dfs_itr_find, bfs_itr_find
-        if depth:
-            return dfs_itr_find(self, el_data)
-        else:
-            return bfs_itr_find(self, el_data)
+    def find_dfs(self, el_data):
+        from algo_data_design.algorithms.searching import dfs_itr_find
+        return dfs_itr_find(self, el_data)
+
+    def find_bfs(self, el_data):
+        return self.find(el_data)
+
+    def find(self, el_data):
+        from algo_data_design.algorithms.searching import bfs_itr_find
+        return bfs_itr_find(self, el_data)
 
     def get_depth(self):
         # run a depth first search to count the deepness
