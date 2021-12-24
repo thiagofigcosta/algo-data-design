@@ -15,6 +15,7 @@ def problems_info():
     i = print_problem_title(i, 'Nth Fibonacci')
     i = print_problem_title(i, 'Replace words')
     i = print_problem_title(i, 'Word len')
+    i = print_problem_title(i, 'Two sum')
     print()
     return i - 1
 
@@ -31,6 +32,8 @@ def main():
         replace_words.main()
     elif problem == 4:
         word_len.main()
+    elif problem == t:
+        two_sum.main()
     else:
         print('Unknown problem')
         sys.exit(1)
