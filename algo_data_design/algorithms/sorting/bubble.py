@@ -3,16 +3,6 @@ from algo_data_design.algorithms.sorting import BubbleSortMethod as Method
 
 
 def sort(array, method=Method.OPTIMUM):
-    """
-    A sort
-    Best Scenario: float numbers uniformly distributed
-    Time complexity:
-        Best: O(n+k), where k is the amount of buckets
-        Average: O(n)
-        Worst: O(n^2)
-    Space complexity: O(n+k)
-    Stable
-    """
     if method == Method.OPTIMUM:
         _optimum_sort(array)
     elif method == Method.REGULAR:

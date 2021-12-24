@@ -15,7 +15,7 @@ def searching_benchmark():
     step = 7
     array_sizes = (100, 1000, 2000, 5000, 10000, 20000, 50000, 100000, 200000, 500000, 2000000)
     deltas = {}
-    for algorithm in ('linear', 'binary', 'jump', 'interpolation'):
+    for algorithm in ('linear', 'binary', 'jump', 'interpolation', 'ordered'):
         deltas[algorithm] = ([], [])
     for size in array_sizes:
         int_list = u_list.sequential_stepped_int_list(size, step)
@@ -33,6 +33,16 @@ def searching_benchmark():
             partial_results[1].append(hits)
         deltas['linear'][0].append(sum(partial_results[0]))
         deltas['linear'][1].append(sum(partial_results[1]) / tests_per_array)
+
+        partial_results = ([], [])
+        for to_find in numbers_to_find:
+            before = u_time.time()
+            _, hits = searching.ordered_search_with_hits(int_list, to_find)
+            delta = u_time.delta(before)
+            partial_results[0].append(delta)
+            partial_results[1].append(hits)
+        deltas['ordered'][0].append(sum(partial_results[0]))
+        deltas['ordered'][1].append(sum(partial_results[1]) / tests_per_array)
 
         partial_results = ([], [])
         for to_find in numbers_to_find:

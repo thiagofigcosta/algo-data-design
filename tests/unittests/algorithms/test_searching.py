@@ -36,6 +36,19 @@ class SearchingTest(unittest.TestCase):
         found_index = searching.binary_search(array, to_find)
         self.assertIsNone(found_index)
 
+    def test_ordered_search_found(self, *args, **kwargs):
+        array = [-9, -5, -2, 0, 1, 2, 3, 4, 6, 7, 8, 500]
+        to_find = -5
+        expected_index = 1
+        found_index = searching.ordered_search(array, to_find)
+        self.assertEqual(expected_index, found_index)
+
+    def test_ordered_search_not_found(self, *args, **kwargs):
+        array = [-9, -5, -2, 0, 1, 2, 3, 4, 6, 7, 8, 500]
+        to_find = 666
+        found_index = searching.ordered_search(array, to_find)
+        self.assertIsNone(found_index)
+
     def test_interpolation_search_found(self, *args, **kwargs):
         array = [-4, -3, -2, -1, 0, 1, 2, 6]
         to_find = -3

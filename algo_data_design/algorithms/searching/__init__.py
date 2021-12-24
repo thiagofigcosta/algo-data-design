@@ -11,3 +11,5 @@ from .jump import search as jump_search
 from .jump import search_with_hits as jump_search_with_hits
 from .linear import search as linear_search
 from .linear import search_with_hits as linear_search_with_hits
+from .ordered import search as ordered_search
+from .ordered import search_with_hits as ordered_search_with_hits
