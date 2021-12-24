@@ -15,6 +15,9 @@ class TreeTest(unittest.TestCase):
         root.branches = other_nodes
         self.this_is_not_a_tree_is_a_graph = Tree(root)
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_copy(self, *args, **kwargs):
         # using this circular graph to test the algorithm reliability
         tree = self.this_is_not_a_tree_is_a_graph.copy()
@@ -74,6 +77,22 @@ class TreeTest(unittest.TestCase):
         expected = 4
         actual = self.tree_1.get_width()
         self.assertEqual(expected, actual)
+
+    def test_count(self, *args, **kwargs):
+        expected = 7
+        actual = self.tree_1.count()
+        self.assertEqual(expected, actual)
+        actual = self.tree_2.count()
+        self.assertEqual(expected, actual)
+        self.assertEqual(0, Tree().count())
+
+    def test_find(self, *args, **kwargs):
+        for method in (False, True):
+            to_find = 5
+            found = self.tree_1.find(to_find, method)
+            self.assertEqual(to_find, found.data)
+            found = self.tree_1.find(5000, method)
+            self.assertIsNone(found)
 
 
 if __name__ == '__main__':

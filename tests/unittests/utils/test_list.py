@@ -8,6 +8,9 @@ class HeapTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_swap_elements(self, *args, **kwargs):
         a_list = [1, 2, 3]
         a_list_2 = a_list.copy()

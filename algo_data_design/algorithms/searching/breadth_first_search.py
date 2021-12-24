@@ -1,4 +1,5 @@
-from algo_data_design.algorithms.searching.depth_breadth_first_search import db_fs_iterative, list_of_visited_to_str
+from algo_data_design.algorithms.searching.depth_breadth_first_search import db_fs_iterative, list_of_visited_to_str, \
+    db_fs_iterative_find
 from algo_data_design.data_structures import Queue
 
 
@@ -39,3 +40,11 @@ def breadth_first_search_recursive(node_data_structure, visited_order=None, queu
         return list_of_visited_to_str(visited_order)
     else:
         return visited_order
+
+
+def breadth_first_search_iterative_find(node_data_structure, to_find):
+    """
+    Time Complexity: O(v+e), where v=vertices and e=edges
+    Space Complexity: O(e)
+    """
+    return db_fs_iterative_find(node_data_structure, to_find, breadth=True)

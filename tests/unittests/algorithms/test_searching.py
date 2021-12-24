@@ -7,6 +7,9 @@ class SearchingTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_linear_search_found(self, *args, **kwargs):
         array = [1, -2, 3, 4, -5, 6, 7, 8, -9, 0, 500, 2]
         to_find = -5

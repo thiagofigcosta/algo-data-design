@@ -8,6 +8,9 @@ class StackTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_append_pop_len_unlimited_size(self, *args, **kwargs):
         s = Stack()
         self.assertEqual(0, len(s))

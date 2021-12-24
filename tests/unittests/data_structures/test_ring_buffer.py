@@ -8,6 +8,9 @@ class RingBufferTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_ring_buffer_behavior(self, *args, **kwargs):
         rb = RingBuffer(3)
         self.assertEqual(0, len(rb))

@@ -10,6 +10,9 @@ class SortingTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_intro_sort(self, *args, **kwargs):
         expected = u_list.sequential_int_list(SortingTest.TEST_SIZE)
         to_sort = expected.copy()

@@ -56,6 +56,9 @@ class Node(object):
         # mandatory to run bfs and dfs
         return Tree(root=self)
 
+    def is_leaf(self):
+        return len(self.branches) == 0
+
 
 class Tree(object):
     def __init__(self, root=None):
@@ -67,10 +70,17 @@ class Tree(object):
 
     def get_next_nodes(self):
         # mandatory to run bfs and dfs
-        return self.root.branches
+        return self.root.get_next_nodes()
 
     def to_forest(self):
         return Forest([Tree(root=new_root) for new_root in self.root.branches])
+
+    def find(self, el_data, depth=False):
+        from algo_data_design.algorithms.searching import dfs_itr_find, bfs_itr_find
+        if depth:
+            return dfs_itr_find(self, el_data)
+        else:
+            return bfs_itr_find(self, el_data)
 
     def get_depth(self):
         # run a depth first search to count the deepness
@@ -144,6 +154,12 @@ class Tree(object):
             return bfs_rec(self, string_output=string_output)
         else:
             return bfs_itr(self, string_output=string_output)
+
+    def count(self):
+        return len(self.depth_first_search())
+
+    def __len__(self):
+        return self.count()
 
     def __copy__(self):
         return self.copy()

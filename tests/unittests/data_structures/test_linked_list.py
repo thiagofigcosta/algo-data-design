@@ -12,6 +12,9 @@ class LinkedListTest(unittest.TestCase):
             self.linked_list_1.add(LinkedListNode(i))
             self.linked_list_1_values.append(i)
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_iterator_and_add_and_get(self, *args, **kwargs):
         for i, node in enumerate(self.linked_list_1):
             self.assertEqual(self.linked_list_1_values[i], node.data)

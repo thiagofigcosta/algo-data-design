@@ -9,6 +9,9 @@ class HeapTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
         pass
 
+    def tearDown(self, *args, **kwargs):
+        pass
+
     def test_max_heap_build(self, *args, **kwargs):
         array = u_list.random_int_list(500, 0, 1000)
         heap.build_max_heap(array)
