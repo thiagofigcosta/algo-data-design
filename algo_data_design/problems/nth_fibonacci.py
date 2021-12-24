@@ -12,11 +12,11 @@ def info():
     print("\t F(n) = F(n-1) + F(n-2)")
     print('Write a program that returns the nth fibonacci number')
     print("Examples:")
-    print("1 -> 0")
-    print("2 -> 1")
-    print("3 -> 1")
-    print("4 -> 2")
-    print("13 -> 144")
+    print("\t1 -> 0")
+    print("\t2 -> 1")
+    print("\t3 -> 1")
+    print("\t4 -> 2")
+    print("\t13 -> 144")
 
 
 def run_sub_optimal(n, first_run=True):

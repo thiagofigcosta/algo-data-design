@@ -11,8 +11,8 @@ def info():
     print("\t True - If there is a closing parenthesis after every open parenthesis")
     print("\t False - Otherwise")
     print("Examples:")
-    print("`)())` -> False")
-    print("`(()()(((())())))` -> True")
+    print("\t`)())` -> False")
+    print("\t`(()()(((())())))` -> True")
 
 
 def run(parenthesis_sequence):

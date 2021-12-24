@@ -12,8 +12,8 @@ def info():
     print("Given a list of root words and a sentence, replace all successors in the sentence by the root")
     print("If more than one root can replace a successor, replace it with the shortest root")
     print("Examples:")
-    print('["cat","bat","rat"], "the cattle was rattled by the battery" -> "the cat was rat by the bat"')
-    print('["a","b","c"], "aadsfasf absbs bbab cadsfafs" -> "a a b c"')
+    print('\t["cat","bat","rat"], "the cattle was rattled by the battery" -> "the cat was rat by the bat"')
+    print('\t["a","b","c"], "aadsfasf absbs bbab cadsfafs" -> "a a b c"')
 
 
 def run_with_set(roots, sentence):

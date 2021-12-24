@@ -14,6 +14,7 @@ def problems_info():
     i = print_problem_title(1, 'Matching Parenthesis')
     i = print_problem_title(i, 'Nth Fibonacci')
     i = print_problem_title(i, 'Replace words')
+    i = print_problem_title(i, 'Word len')
     print()
     return i - 1
 
@@ -28,6 +29,8 @@ def main():
         nth_fibonacci.main()
     elif problem == 3:
         replace_words.main()
+    elif problem == 4:
+        word_len.main()
     else:
         print('Unknown problem')
         sys.exit(1)
