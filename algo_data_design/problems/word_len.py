@@ -13,7 +13,7 @@ def info():
 
 
 def run(words):
-    # Time complexity: # O(n)
+    # Time complexity: O(n)
     # Space complexity: O(m), where m is the amount of distinguished words
     solution = {}
     for word in words:

@@ -15,7 +15,7 @@ def info():
 
 
 def run(numbers, target):
-    # Time complexity: # O(n)
+    # Time complexity: O(n)
     # Space complexity: O(m), where m is the amount of different numbers in the list
 
     solutions = {}

@@ -7,7 +7,7 @@ def sort(array):
     Best Scenario: Elements have a large interval, good for sorting data partially (dates, 13052021, sort by year only)
     Time complexity: O(nk), where k is the amount of digits in the greatest value
     Space complexity: O(n+k)
-    Stable
+    Unstable, two equal keys are not guaranteed to be in the same order as the input on the output
     """
     module = True
     greatest_number = max(array)
@@ -48,7 +48,7 @@ def sort_positive_only(array):
     Best Scenario: Elements have a large interval, good for sorting data partially (dates, 13052021, sort by year only)
     Time complexity: O(nk), where k is the amount of digits in the greatest value
     Space complexity: O(n+k)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     greatest_number = max(array)
     k = int(math.log10(abs(greatest_number))) + 1

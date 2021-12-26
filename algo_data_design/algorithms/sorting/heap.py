@@ -6,7 +6,7 @@ def sort(array):
     """
     Time complexity: O(n*log(n))
     Space complexity: O(1)
-    Unstable
+    Unstable, two equal keys are not guaranteed to be in the same order as the input on the output
     """
     # create a max heap
     heap.build_max_heap(array)

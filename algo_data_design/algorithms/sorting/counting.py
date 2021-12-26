@@ -8,7 +8,7 @@ def sort(array):
                 When the list to be sorted is defined between a big interval then k is big.
     Space complexity: O(n+k), some sources says that this complexity is O(k), but we need to copy the
                 array to sort it in place
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     smallest_number = min(array)
     count_array_length = max(array) - smallest_number + 1

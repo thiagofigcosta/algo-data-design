@@ -7,7 +7,7 @@ def sort(array):
     Time complexity:
         Average/Best/Worst: O(n*log(n))
     Space complexity: O(n)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     _sort_recursive(array)
 
@@ -18,7 +18,7 @@ def sort_linked_list(ll):
     Time complexity:
         Average/Best/Worst: O(n*log(n))
     Space complexity: O(1)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     if ll.is_empty() or ll.is_one_sized():
         return

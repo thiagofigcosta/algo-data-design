@@ -35,7 +35,7 @@ def run_with_set(roots, sentence):
 
 def run_with_ordered_search(roots, sentence):
     # considering: `n` as amount of roots, `m` as the amount of words and `a` as word average size
-    # Time complexity: # O(n*(log(n)+m+a))
+    # Time complexity: O(n*(log(n)+m+a))
     # Space complexity: O(m*a+n)
     sorted_roots = sorted(roots)  # O(n*log(n))
     sentence_array = sentence.split(' ')  # O(n)

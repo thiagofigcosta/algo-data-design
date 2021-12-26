@@ -10,7 +10,7 @@ def sort(array, amount_of_buckets=20):
         Average: O(n)
         Worst: O(n^2)
     Space complexity: O(n+k)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     # create buckets
     buckets = [[] for _ in range(amount_of_buckets)]

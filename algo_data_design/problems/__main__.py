@@ -16,6 +16,8 @@ def problems_info():
     i = print_problem_title(i, 'Word len')
     i = print_problem_title(i, 'Two sum')
     i = print_problem_title(i, 'Sum of two integers')
+    i = print_problem_title(i, 'Climbing Stairs')
+    i = print_problem_title(i, 'Coin change')
     print()
     return i - 1
 
@@ -40,6 +42,10 @@ def main():
             two_sum.main()
         elif problem == 6:
             sum_of_two_integers.main()
+        elif problem == 7:
+            climbing_stairs.main()
+        elif problem == 8:
+            coin_change.main()
         else:
             raise Exception('Unknown problem `{}`'.format(problem))
         print()

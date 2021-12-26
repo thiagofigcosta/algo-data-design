@@ -11,7 +11,7 @@ def sort(array):
         Average/Best: O(n*log(n))
         Worst: O(n^2)
     Space complexity: O(1)
-    Unstable
+    Unstable, two equal keys are not guaranteed to be in the same order as the input on the output
     """
     step = len(array) // 2
     while step > 0:

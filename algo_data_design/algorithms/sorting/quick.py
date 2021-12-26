@@ -13,7 +13,7 @@ def sort(array, pivot_method=PivotMethod.MEDIAN):
         Best/Average: O(n*log(n))
         Worst: O(n)
         Store the recursion stack
-    Unstable (does not consider the positions to perform swaps, just the pivot)
+    Unstable, two equal keys are not guaranteed to be in the same order as the input on the output (does not consider the positions to perform swaps, just the pivot)
     """
     _sort_recursive(array, 0, len(array) - 1, pivot_method)
 

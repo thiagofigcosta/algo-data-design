@@ -32,6 +32,20 @@ def run_sub_optimal(n, first_run=True):
         return run_sub_optimal(n - 1, False) + run_sub_optimal(n - 2, False)
 
 
+def run_optimal_recursive(n, first_run=True, cache=None):
+    # Time complexity: O(n)
+    # Space complexity: O(n)
+    if first_run:
+        n -= 1  # nth number not position n
+    if cache is None:
+        cache = {}
+    if n < 2:
+        return n
+    elif n not in cache:
+        cache[n] = run_optimal_recursive(n - 1, False, cache) + run_optimal_recursive(n - 2, False, cache)
+    return cache[n]
+
+
 def run_optimal(n):
     # Time complexity: O(n)
     # Space complexity: O(n)
@@ -43,14 +57,21 @@ def run_optimal(n):
 
 def main():
     if algo_data_design.problems.NO_PROMPT:
-        optimal = True
+        solution = 1
     else:
-        print('Run optimal solution? {y,n}')
-        optimal = u_input.input_boolean()
-    if optimal:
+        print('Choose a solution to run:')
+        print('\t1 - Dynamic Programming - Iterative')
+        print('\t2 - Dynamic Programming - Recursive')
+        print('\t3 - Backtracking (Slow)')
+        solution = u_input.input_number(greater_or_eq=1, lower_or_eq=3)
+    if solution == 1:
         run = run_optimal
-    else:
+    elif solution == 2:
+        run = run_optimal_recursive
+    elif solution == 3:
         run = run_sub_optimal
+    else:
+        raise Exception('Unknown solution')
     info()
     test.assertEqual(1, run(2))
     test.assertEqual(2, run(4))

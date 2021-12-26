@@ -19,7 +19,7 @@ def _optimum_sort(array):
         Best: O(n)
         Average/Worst: O(n^2)
     Space complexity: O(1)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     for i in range(len(array)):
         swapped = False
@@ -39,7 +39,7 @@ def _regular_sort(array):
     Worst Scenario: Array is sorted descending
     Time complexity: O(n^2)
     Space complexity: O(1)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     for i in range(len(array)):
         # compare following elements two by two

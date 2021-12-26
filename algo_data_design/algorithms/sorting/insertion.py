@@ -6,7 +6,7 @@ def sort(array):
         Best: O(n)
         Average/Worst: O(n^2)
     Space complexity: O(1)
-    Stable
+    Stable, two equal keys are guaranteed to be in the same order as the input on the output
     """
     for i, to_insert in enumerate(array):
         j = i - 1

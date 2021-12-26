@@ -9,14 +9,14 @@ from algo_data_design.algorithms.sorting.quick_insertion import _insertion_sort
 
 def sort(array, pivot_method=PivotMethod.MEDIAN, insertion_threshold=50):
     """
-    A hybrid sorting algorithm
+    A hybrid sorting algorithm, used on C++
     Worst Scenario: When the array is already sorted
     Time complexity: O(n*log(n))
     Space complexity:
         Best/Average: O(n*log(n))
         Worst: O(n)
         Store the recursion stack
-    Unstable (does not consider the positions to perform swaps, just the pivot)
+    Unstable, two equal keys are not guaranteed to be in the same order as the input on the output (does not consider the positions to perform swaps, just the pivot)
     """
     if len(array) > 1:
         depth = 2 * int(math.log2(len(array)))
