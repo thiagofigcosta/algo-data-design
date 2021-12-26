@@ -1,5 +1,3 @@
-import sys
-
 import algo_data_design
 from algo_data_design.problems import *
 from algo_data_design.utils import input as u_input
@@ -17,6 +15,7 @@ def problems_info():
     i = print_problem_title(i, 'Replace words')
     i = print_problem_title(i, 'Word len')
     i = print_problem_title(i, 'Two sum')
+    i = print_problem_title(i, 'Sum of two integers')
     print()
     return i - 1
 
@@ -24,7 +23,7 @@ def problems_info():
 def main():
     amount_of_problems = problems_info()
     if algo_data_design.problems.NO_PROMPT:
-        problems = list(range(1, amount_of_problems))
+        problems = list(range(1, amount_of_problems + 1))
     else:
         print('Choose a problem to run [1 - {}]: '.format(amount_of_problems))
         problems = u_input.input_number(greater_or_eq=1, lower_or_eq=amount_of_problems)
@@ -39,9 +38,11 @@ def main():
             word_len.main()
         elif problem == 5:
             two_sum.main()
+        elif problem == 6:
+            sum_of_two_integers.main()
         else:
-            print('Unknown problem `{}`'.format(problem))
-            sys.exit(1)
+            raise Exception('Unknown problem `{}`'.format(problem))
+        print()
 
 
 if __name__ == "__main__":

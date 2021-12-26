@@ -1,5 +1,7 @@
 import unittest
 
+import algo_data_design.utils.random as u_random
+
 test = unittest.TestCase()
 
 
@@ -47,11 +49,11 @@ def number_to_bin(num):
 
 def sum_bit(a_bit, b_bit, carry=0):
     if a_bit == 0 and b_bit == 0:
-        return 0, max(0, carry)
+        return carry, 0
     elif (a_bit == 1 and b_bit == 0) or (a_bit == 0 and b_bit == 1):
-        return 1, max(0, carry)
+        return carry ^ 1, carry  # bit flip on carry 0->1 and 1->0
     else:  # a_bit==1 and b_bit == 1
-        return 0, 1  # don't need max, the result is always 1
+        return carry, 1
 
 
 def sum_bin(a_bin, b_bin):
@@ -68,22 +70,18 @@ def sum_bin(a_bin, b_bin):
         if i < len(b_bin):
             b_bit = b_bin[i]
         ab_bit, carry = sum_bit(a_bit, b_bit, carry)
-        if carry > 0:
-            ab_bit, carry = sum_bit(ab_bit, carry)
         ab_bin[i] = ab_bit
 
     return ab_bin
 
 
 def diff_bit(a_bit, b_bit, borrow=0):
-    if a_bit == 0 and b_bit == 0:
-        return 0, max(0, borrow)
-    elif a_bit == 1 and b_bit == 0:
-        return 1, max(0, borrow)
+    if a_bit == 1 and b_bit == 0:
+        return borrow ^ 1, 0  # bit flip on borrow 0->1 and 1->0
     elif a_bit == 0 and b_bit == 1:
-        return 1, 1  # don't need max, the result is always 1
-    else:  # a_bit==1 and b_bit == 1
-        return 0, max(0, borrow)
+        return borrow ^ 1, 1  # bit flip on borrow 0->1 and 1->0
+    else:  # (a_bit == 0 and b_bit == 0) or (a_bit == 1 and b_bit == 1)
+        return borrow, borrow
 
 
 def diff_bin(a_bin, b_bin):
@@ -97,9 +95,7 @@ def diff_bin(a_bin, b_bin):
             a_bit = a_bin[i]
         if i < len(b_bin):
             b_bit = b_bin[i]
-        ab_bit, borrow = sum_bit(a_bit, b_bit, borrow)
-        if borrow > 0:
-            ab_bit, borrow = sum_bit(ab_bit, borrow)
+        ab_bit, borrow = diff_bit(a_bit, b_bit, borrow)
         ab_bin[i] = ab_bit
 
     return ab_bin
@@ -140,8 +136,6 @@ def run(a, b):
 
 def main():
     info()
-    print(number_to_bin(45))
-    print(number_to_bin(19))
     test.assertEqual(51, run(50, 1))
     test.assertEqual(13, run(7, 6))
     test.assertEqual(0, run(-5, 5))
@@ -151,6 +145,13 @@ def main():
     test.assertEqual(-45, run(-50, 5))
     test.assertEqual(45, run(-5, 50))
     test.assertEqual(62, run(31, 31))
+    test.assertEqual(1292, run(983, 309))
+    for i in range(50):
+        a = u_random.random_int(-1000, 1000)
+        b = u_random.random_int(-1000, 1000)
+        expected = a + b
+        actual = run(a, b)
+        test.assertEqual(expected, actual, msg='{} + {} = {} not {}'.format(a, b, expected, actual))
     print('All tests passed')
 
 
