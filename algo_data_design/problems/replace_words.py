@@ -1,5 +1,6 @@
 import unittest
 
+import algo_data_design
 from algo_data_design.utils import input as u_input
 
 test = unittest.TestCase()
@@ -64,10 +65,13 @@ def run_with_ordered_search(roots, sentence):
 
 
 def main():
-    print('Choose a solution to run:')
-    print('\t1 - Using ordered search')
-    print('\t2 - Using hash set')
-    solution = u_input.input_number(greater_or_eq=1, lower_or_eq=2)
+    if algo_data_design.problems.NO_PROMPT:
+        solution = 1
+    else:
+        print('Choose a solution to run:')
+        print('\t1 - Using ordered search')
+        print('\t2 - Using hash set')
+        solution = u_input.input_number(greater_or_eq=1, lower_or_eq=2)
     if solution == 1:
         run = run_with_ordered_search
     elif solution == 2:

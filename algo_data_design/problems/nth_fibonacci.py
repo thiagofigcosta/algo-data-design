@@ -1,5 +1,7 @@
 import unittest
 
+import algo_data_design.problems
+
 test = unittest.TestCase()
 from algo_data_design.utils import input as u_input
 
@@ -40,8 +42,11 @@ def run_optimal(n):
 
 
 def main():
-    print('Run optimal solution? {y,n}')
-    optimal = u_input.input_boolean()
+    if algo_data_design.problems.NO_PROMPT:
+        optimal = True
+    else:
+        print('Run optimal solution? {y,n}')
+        optimal = u_input.input_boolean()
     if optimal:
         run = run_optimal
     else:
