@@ -1,4 +1,5 @@
 import algo_data_design.utils.random as u_random
+from algo_data_design.data_structures import Stack
 
 
 class Connection(object):
@@ -122,7 +123,7 @@ class Graph(object):
         for i in range(len(self.nodes)):
             if node == self.nodes[i]:
                 for cur_node in self.nodes:  # delete existing connections
-                    for j in range(len(cur_node.connections)-1,-1,-1): # reverse order to preserve index
+                    for j in range(len(cur_node.connections) - 1, -1, -1):  # reverse order to preserve index
                         if cur_node.connections[j].node == node:
                             del cur_node.connections[j]
                 del self.nodes[i]
@@ -242,6 +243,66 @@ class Graph(object):
                 else:
                     raise Exception('This node cannot be represented with a 2D matrix')
         return matrix, node_data_map
+
+    def _has_circle_iter(self, get_circle=False):
+        visited = set()  # to avoid visiting the same twice
+        current_depth_line = set()  # used to detect the circle, if we visit the same node on the current
+        # line twice there is a circle
+        to_visit = Stack(first_el=(False, self.nodes[0]))  # False means we will visit this node, not finish the line
+        while len(to_visit) > 0:
+            finish_line, visiting = to_visit.pop()
+            if finish_line:
+                current_depth_line.remove(visiting)  # remove the element from the line, since we finished this line
+            elif visiting not in visited:  # visit just if not visited
+                to_visit.push((True, visiting))  # mark to remove from line, this is need to avoid recursion if we
+                # were using recursion we would just remove the element from the line after finishing all neighbors
+                # recursion calls
+                visited.add(visiting)  # mark as visited
+                current_depth_line.add(visiting)  # visit, put on the current depth line to check circle
+                for branch in reversed(visiting.get_next_nodes()):
+                    to_visit.push((False, branch))  # add children to visit
+            elif visiting in current_depth_line:
+                if get_circle:
+                    return True, current_depth_line  # circle found
+                else:
+                    return True  # circle found
+        if get_circle:
+            return False, []
+        else:
+            return False
+
+    def _has_circle_rec(self, get_circle=False):
+        def __has_circle_rec(visiting, visited=None, current_depth_line=None):
+            if visited is None:
+                visited = set()  # to avoid visiting the same twice
+            if current_depth_line is None:
+                current_depth_line = set()  # used to detect the circle, if we visit the same node on the current
+                # line twice there is a circle
+
+            visited.add(visiting)  # mark as visited
+            current_depth_line.add(visiting)  # visit, put on the current depth line to check circle
+            for to_visit in visiting.get_next_nodes():
+                if to_visit not in visited:  # visit not visited children
+                    _has_circle, _circle = __has_circle_rec(to_visit, visited,
+                                                            current_depth_line)
+                    if _has_circle:
+                        return _has_circle, _circle
+                elif to_visit in current_depth_line:
+                    return True, current_depth_line  # circle found
+            current_depth_line.remove(visiting)  # remove the element from the line, since we finished this line
+            return False, []
+
+        has_circle, circle = __has_circle_rec(self.nodes[0])
+        if get_circle:
+            return has_circle, circle
+        else:
+            return has_circle
+
+    def has_circle(self, get_circle=False, recursive=False):
+        if recursive:
+            return self._has_circle_rec(get_circle=get_circle)
+        else:
+            return self._has_circle_iter(get_circle=get_circle)
 
     def __eq__(self, other):
         if not isinstance(other, Graph):

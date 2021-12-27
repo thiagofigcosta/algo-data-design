@@ -19,6 +19,17 @@ class GraphTest(unittest.TestCase):
         node_2.connections = conn_2
         node_3.connections = conn_3
         self.graph_circle = Graph(nodes=[node_0, node_1, node_2, node_3])
+        node_0 = Node(0)
+        node_1 = Node(1)
+        node_2 = Node(2)
+        node_3 = Node(3)
+        conn_0 = [Conn(node_1), Conn(node_3)]
+        conn_1 = [Conn(node_3)]
+        conn_2 = [Conn(node_0)]
+        node_0.connections = conn_0
+        node_1.connections = conn_1
+        node_2.connections = conn_2
+        self.graph_linear = Graph(nodes=[node_0, node_1, node_2, node_3])
 
     def tearDown(self, *args, **kwargs):
         pass
@@ -83,12 +94,22 @@ class GraphTest(unittest.TestCase):
         graph = self.graph_circle.copy()
         expected_graph_0 = "0:\n\t--1--> 1\n\t--1--> 3\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
         self.assertEqual(expected_graph_0, str(graph))
-        popped=graph.pop_node(0)
+        popped = graph.pop_node(0)
         self.assertEqual(0, popped.data)
         self.assertFalse(graph.contains(0))
         expected_graph_1 = "1:\n\t--1--> 2\n2:\n3:\n"
         self.assertEqual(expected_graph_1, str(graph))
 
+    def test_has_circle(self):
+        has_circle, circle = self.graph_circle.has_circle(get_circle=True, recursive=False)
+        self.assertTrue(has_circle)
+        self.assertEqual({0, 1, 2}, set([el.data for el in circle]))
+        self.assertFalse(self.graph_linear.has_circle())
+
+        has_circle, circle = self.graph_circle.has_circle(get_circle=True, recursive=True)
+        self.assertTrue(has_circle)
+        self.assertEqual({0, 1, 2}, set([el.data for el in circle]))
+        self.assertFalse(self.graph_linear.has_circle(recursive=True))
 
 
 if __name__ == '__main__':
