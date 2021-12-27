@@ -133,6 +133,11 @@ class BinarySearchTree(BinaryTree):
     def __copy__(self):
         return self.copy()
 
+    def __eq__(self, other):
+        if not isinstance(other, BinarySearchTree):
+            return False
+        return self.breadth_first_search(string_output=True) == other.breadth_first_search(string_output=True)
+
     @staticmethod
     def weak_cast_from_binary_tree(binary_tree):
         # I'm just lazy to override fully the copy functions and also to code an exclusive node for this tree

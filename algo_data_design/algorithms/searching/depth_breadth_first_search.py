@@ -7,10 +7,10 @@ def db_fs_iterative(node_data_structure, breadth=False):
     visited = set()  # to avoid visiting the same twice
     if breadth:
         # use a queue to always retrieve the first added element, making it breadth
-        to_visit = Queue(first_el=node_data_structure.get_node())
+        to_visit = Queue(first_el=node_data_structure.get_first_node())
     else:
         # use a stack to always retrieve the last added element, making it depth
-        to_visit = Stack(first_el=node_data_structure.get_node())
+        to_visit = Stack(first_el=node_data_structure.get_first_node())
     while len(to_visit) > 0:
         visiting = to_visit.pop()
         if visiting not in visited:  # visit just if not visited
@@ -29,10 +29,10 @@ def db_fs_iterative_find(node_data_structure, to_find, breadth=False):
     visited = set()  # to avoid visiting the same twice
     if breadth:
         # use a queue to always retrieve the first added element, making it breadth
-        to_visit = Queue(first_el=node_data_structure.get_node())
+        to_visit = Queue(first_el=node_data_structure.get_first_node())
     else:
         # use a stack to always retrieve the last added element, making it depth
-        to_visit = Stack(first_el=node_data_structure.get_node())
+        to_visit = Stack(first_el=node_data_structure.get_first_node())
     while len(to_visit) > 0:
         visiting = to_visit.pop()
         if visiting not in visited:  # visit just if not visited

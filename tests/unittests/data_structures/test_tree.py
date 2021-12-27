@@ -26,6 +26,10 @@ class TreeTest(unittest.TestCase):
                          tree_to_change.depth_first_search(string_output=True))
         self.assertEqual(tree.breadth_first_search(string_output=True),
                          tree_to_change.breadth_first_search(string_output=True))
+        self.assertEqual(tree.depth_first_search(string_output=True),
+                         self.this_is_not_a_tree_is_a_graph.depth_first_search(string_output=True))
+        self.assertEqual(tree.breadth_first_search(string_output=True),
+                         self.this_is_not_a_tree_is_a_graph.breadth_first_search(string_output=True))
         reference_to_tree_to_change = tree_to_change
         self.assertEqual(reference_to_tree_to_change.root.data, tree_to_change.root.data)
         tree_to_change.root.data = 50

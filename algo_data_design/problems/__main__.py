@@ -18,6 +18,7 @@ def problems_info():
     i = print_problem_title(i, 'Sum of two integers')
     i = print_problem_title(i, 'Climbing Stairs')
     i = print_problem_title(i, 'Coin change')
+    i = print_problem_title(i, 'Clone graph')
     print()
     return i - 1
 
@@ -28,7 +29,7 @@ def main():
         problems = list(range(1, amount_of_problems + 1))
     else:
         print('Choose a problem to run [1 - {}]: '.format(amount_of_problems))
-        problems = u_input.input_number(greater_or_eq=1, lower_or_eq=amount_of_problems)
+        problems = [u_input.input_number(greater_or_eq=1, lower_or_eq=amount_of_problems)]
     for problem in problems:
         if problem == 1:
             matching_parenthesis.main()
@@ -46,6 +47,8 @@ def main():
             climbing_stairs.main()
         elif problem == 8:
             coin_change.main()
+        elif problem == 9:
+            clone_graph.main()
         else:
             raise Exception('Unknown problem `{}`'.format(problem))
         print()

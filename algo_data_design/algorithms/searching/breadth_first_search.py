@@ -26,7 +26,7 @@ def breadth_first_search_recursive(node_data_structure, visited_order=None, queu
     if visited_order is None:
         visited_order = []
     if queue is None:  # create an auxiliary queue to make it breadth
-        queue = Queue(first_el=node_data_structure.get_node())
+        queue = Queue(first_el=node_data_structure.get_first_node())
     if not queue.is_empty():
         visiting = queue.pop()  # get node to visit
         visited.add(visiting)  # mark as visited

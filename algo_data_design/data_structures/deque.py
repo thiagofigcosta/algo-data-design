@@ -51,3 +51,8 @@ class Deque(object):
 
     def __len__(self):
         return len(self._array)
+
+    def __eq__(self, other):
+        if not isinstance(other, Deque):
+            return False
+        return self._array == other._array and self._limit == other._limit

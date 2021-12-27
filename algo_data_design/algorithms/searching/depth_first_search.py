@@ -23,7 +23,7 @@ def depth_first_search_recursive(node_data_structure, visited_order=None, visite
         visited = set()  # to avoid visiting the same twice
     if visited_order is None:
         visited_order = []
-    visiting = node_data_structure.get_node()
+    visiting = node_data_structure.get_first_node()
     if visiting is not None:  # if the data structure is not empty
         visited.add(visiting)  # mark as visited
         visited_order.append(visiting)  # visit

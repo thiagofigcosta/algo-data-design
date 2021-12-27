@@ -64,7 +64,7 @@ class Tree(object):
     def __init__(self, root=None):
         self.root = root
 
-    def get_node(self):
+    def get_first_node(self):
         # mandatory to run bfs and dfs
         return self.root
 
@@ -92,7 +92,7 @@ class Tree(object):
             if visited is None:
                 # avoid infinite recursion in cyclic, trees are not cyclic though
                 visited = set()
-            visiting = node_data_structure.get_node()
+            visiting = node_data_structure.get_first_node()
             visited.add(visiting)
             depths = [0]  # base case of the recursion is 0
             for to_visit in visiting.get_next_nodes():
@@ -118,7 +118,7 @@ class Tree(object):
                 # avoid infinite recursion in cyclic, trees are not cyclic though
                 visited = set()
             if queue is None:
-                queue = Queue(first_el=node_data_structure.get_node())
+                queue = Queue(first_el=node_data_structure.get_first_node())
             if not queue.is_empty():
                 visiting = queue.pop()
                 visited.add(visiting)
@@ -192,6 +192,11 @@ class Tree(object):
         new_root = __copy(self.root, equivalence)  # clone recursively
         return Tree(root=new_root)  # return new tree
 
+    def __eq__(self, other):
+        if not isinstance(other, Tree):
+            return False
+        return self.breadth_first_search(string_output=True) == other.breadth_first_search(string_output=True)
+
 
 class Forest(object):
     def __init__(self, trees=None):
@@ -204,3 +209,8 @@ class Forest(object):
 
     def __getitem__(self, item):
         return self.trees[item]
+
+    def __eq__(self, other):
+        if not isinstance(other, Forest):
+            return False
+        return self.trees == other.trees

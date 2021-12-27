@@ -51,3 +51,14 @@ class RingBuffer(object):
 
     def __len__(self):
         return self._cur_size
+
+    def __eq__(self, other):
+        if not isinstance(other, RingBuffer):
+            return False
+        equal = self._size == other._size and self._cur_size == other._cur_size
+        if not equal:
+            return False
+        for i in range(self._cur_size):
+            if self.get(i) != other.get(i):
+                return False
+        return True

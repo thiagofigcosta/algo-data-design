@@ -74,7 +74,7 @@ class BinaryTree(object):
     def __init__(self, root=None):
         self.root = root
 
-    def get_node(self):
+    def get_first_node(self):
         # mandatory to run bfs and dfs
         return self.root
 
@@ -169,7 +169,7 @@ class BinaryTree(object):
             if visited is None:
                 # avoid infinite recursion in cyclic, trees are not cyclic though
                 visited = set()
-            visiting = node_data_structure.get_node()
+            visiting = node_data_structure.get_first_node()
             visited.add(visiting)
             depths = [0]  # base case of the recursion is 0
             for to_visit in visiting.get_next_nodes():
@@ -185,7 +185,7 @@ class BinaryTree(object):
     def invert(self):
         # run BFS to swap all elements
         visited = set()  # to avoid visiting the same twice
-        to_visit = Queue(first_el=self.get_node())
+        to_visit = Queue(first_el=self.get_first_node())
         while len(to_visit) > 0:
             visiting = to_visit.pop()
             if visiting not in visited:  # visit just if not visited
@@ -209,7 +209,7 @@ class BinaryTree(object):
                 # avoid infinite recursion in cyclic, trees are not cyclic though
                 visited = set()
             if queue is None:
-                queue = Queue(first_el=node_data_structure.get_node())
+                queue = Queue(first_el=node_data_structure.get_first_node())
             if not queue.is_empty():
                 visiting = queue.pop()
                 visited.add(visiting)
@@ -253,7 +253,7 @@ class BinaryTree(object):
     def first_non_full_node(self):
         # run BFS search for the first node with available space
         visited = set()  # to avoid visiting the same twice
-        to_visit = Queue(first_el=self.get_node())
+        to_visit = Queue(first_el=self.get_first_node())
         while len(to_visit) > 0:
             visiting = to_visit.pop()
             if visiting not in visited:  # visit just if not visited
@@ -278,7 +278,7 @@ class BinaryTree(object):
     def last_node_and_parent(self):
         # run bfs to find
         visited = set()  # to avoid visiting the same twice
-        the_last = (self.get_node(), None)
+        the_last = (self.get_first_node(), None)
         to_visit = Queue(first_el=the_last)
         while len(to_visit) > 0:
             visiting, parent = to_visit.pop()
@@ -337,3 +337,8 @@ class BinaryTree(object):
         equivalence = {}  # create a dict to store the already cloned nodes
         new_root = __copy(self.root, equivalence)  # clone recursively
         return BinaryTree(root=new_root)  # return new tree
+
+    def __eq__(self, other):
+        if not isinstance(other, BinaryTree):
+            return False
+        return self.breadth_first_search(string_output=True) == other.breadth_first_search(string_output=True)

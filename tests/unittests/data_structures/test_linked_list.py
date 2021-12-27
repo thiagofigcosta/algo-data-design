@@ -31,6 +31,7 @@ class LinkedListTest(unittest.TestCase):
         linked_list = self.linked_list_1.copy()
         linked_list_to_change = self.linked_list_1.copy()
         self.assertEqual(linked_list, linked_list_to_change)
+        self.assertEqual(linked_list, self.linked_list_1)
         reference_to_linked_list_to_change = linked_list_to_change
         self.assertEqual(linked_list.head, linked_list_to_change.head)
         linked_list_to_change.head.data = 50

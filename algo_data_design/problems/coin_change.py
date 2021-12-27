@@ -117,7 +117,7 @@ def run_dp_bottom_up(coins, amount):
     # Space complexity: O(n*m)
     # Bottom up, solves simple problems first and then go the complex one, navigate the tree of choices from
     # the simplest case till the complex one, storing the known solutions to avoid recomputing
-    uninitialized = None
+    uninitialized_cell = None
     if amount == 0:
         return 0
 
@@ -125,7 +125,7 @@ def run_dp_bottom_up(coins, amount):
     #  being used in the solution while the columns store all kinds of sums
     dp_cache = []
     for i in range(len(coins) + 1):  # plus one to store the base case
-        row = [uninitialized for _ in range(amount + 1)]  # plus one to store the base case
+        row = [uninitialized_cell for _ in range(amount + 1)]  # plus one to store the base case
         dp_cache.append(row)
     for j in range(1, amount + 1, 1):  # initialize with base case, if there is no coin, there is no solution
         dp_cache[0][j] = float('inf')
