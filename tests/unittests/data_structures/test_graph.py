@@ -33,7 +33,7 @@ class GraphTest(unittest.TestCase):
         graph.add_connection(1, 4, bidirectional=False)
         graph.add_connection(4, 5)
         expected_graph = "1:\n\t--1--> 2\n\t--1--> 3\n\t--1--> 4\n2:\n\t--1--> 1\n\t--1--> 3\n3:\n\t--1--> 2\n\t" \
-                         "--1--> 1\n4:\n\t--1--> 5\n5:\n\t--1--> 4\n"""
+                         "--1--> 1\n4:\n\t--1--> 5\n5:\n\t--1--> 4\n"
         self.assertEqual(expected_graph, str(graph))
 
     def test_construction_conn_fail(self, *args, **kwargs):
@@ -66,6 +66,29 @@ class GraphTest(unittest.TestCase):
     def test_dfs_and_bfs(self):
         self.assertEqual('0 -> 1 -> 3 -> 2', self.graph_circle.breadth_first_search(0, string_output=True))
         self.assertEqual('0 -> 1 -> 2 -> 3', self.graph_circle.depth_first_search(0, string_output=True))
+
+    def test_remove_connection(self):
+        graph = self.graph_circle.copy()
+        expected_graph_0 = "0:\n\t--1--> 1\n\t--1--> 3\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
+        self.assertEqual(expected_graph_0, str(graph))
+        graph.remove_connection(0, 3)
+        expected_graph_1 = "0:\n\t--1--> 1\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n"
+        self.assertEqual(expected_graph_1, str(graph))
+        graph = self.graph_circle.copy()
+        graph.remove_connection(0, 3, bidirectional=False)
+        expected_graph_2 = "0:\n\t--1--> 1\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
+        self.assertEqual(expected_graph_2, str(graph))
+
+    def test_pop_node_and_contains(self):
+        graph = self.graph_circle.copy()
+        expected_graph_0 = "0:\n\t--1--> 1\n\t--1--> 3\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
+        self.assertEqual(expected_graph_0, str(graph))
+        popped=graph.pop_node(0)
+        self.assertEqual(0, popped.data)
+        self.assertFalse(graph.contains(0))
+        expected_graph_1 = "1:\n\t--1--> 2\n2:\n3:\n"
+        self.assertEqual(expected_graph_1, str(graph))
+
 
 
 if __name__ == '__main__':

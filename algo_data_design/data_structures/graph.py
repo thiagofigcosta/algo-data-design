@@ -104,6 +104,9 @@ class Graph(object):
                 return node
         return None
 
+    def contains(self, data):
+        return self.get_node(data) is not None
+
     def add_node(self, data_or_node):
         node = data_or_node
         if not isinstance(data_or_node, Node):
@@ -111,6 +114,21 @@ class Graph(object):
         if node not in self.nodes:
             self.nodes.append(node)
         self._starting_node = None
+
+    def pop_node(self, data_or_node):
+        node = data_or_node
+        if not isinstance(data_or_node, Node):
+            node = self.get_node(data_or_node)
+        for i in range(len(self.nodes)):
+            if node == self.nodes[i]:
+                for cur_node in self.nodes:  # delete existing connections
+                    for j in range(len(cur_node.connections)-1,-1,-1): # reverse order to preserve index
+                        if cur_node.connections[j].node == node:
+                            del cur_node.connections[j]
+                del self.nodes[i]
+                break
+        self._starting_node = None
+        return node
 
     def add_connection(self, data_or_node_1, data_or_node_2, weight=1, bidirectional=True):
         node_1 = data_or_node_1
@@ -124,6 +142,25 @@ class Graph(object):
         node_1.connections.append(Connection(node_2, weight))
         if bidirectional:
             node_2.connections.append(Connection(node_1, weight))
+
+    def remove_connection(self, data_or_node_1, data_or_node_2, bidirectional=True):
+        node_1 = data_or_node_1
+        if not isinstance(data_or_node_1, Node):
+            node_1 = self.get_node(data_or_node_1)
+        node_2 = data_or_node_2
+        if not isinstance(data_or_node_2, Node):
+            node_2 = self.get_node(data_or_node_2)
+        if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
+            raise Exception('Please provides nodes contained in the graph')
+        for i in range(len(node_1.connections)):
+            if node_1.connections[i].node == node_2:
+                del node_1.connections[i]
+                break
+        if bidirectional:
+            for i in range(len(node_2.connections)):
+                if node_2.connections[i].node == node_1:
+                    del node_2.connections[i]
+                    break
 
     def __str__(self):
         string = ''
