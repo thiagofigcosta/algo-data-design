@@ -13,8 +13,9 @@ def build_min_max_heap(array, min_heap=False):
         father = get_node_father_index(node)
         # if the child is greater than the father we need to update it backwards
         backward_node = node
-        while backward_node > 0 and ((array[backward_node] > array[father] and not min_heap) or (
-                array[backward_node] < array[father] and min_heap)):
+        # check the type first and then run the real comparison
+        while backward_node > 0 and (not min_heap and (array[backward_node] > array[father]) or (
+                min_heap and array[backward_node] < array[father])):
             u_list.swap_elements(array, backward_node, father)
             backward_node = get_node_father_index(backward_node)
             father = get_node_father_index(backward_node)
@@ -30,10 +31,12 @@ def rebuild_min_max_heap(array, starting_point, min_heap=False):
     root = array[0]
     left, right = 1, 2
     while right <= starting_point:
+        # check the type first and then run the real comparison
         if right < starting_point and (
-                (array[right - 1] < array[right] and not min_heap) or (array[right - 1] > array[right] and min_heap)):
+                (not min_heap and array[right - 1] < array[right]) or (min_heap and array[right - 1] > array[right])):
             right += 1
-        if (root >= array[right - 1] and not min_heap) or (root <= array[right - 1] and min_heap):
+        # check the type first and then run the real comparison
+        if (not min_heap and root >= array[right - 1]) or (min_heap and root <= array[right - 1]):
             break
         array[left - 1] = array[right - 1]
         left = right

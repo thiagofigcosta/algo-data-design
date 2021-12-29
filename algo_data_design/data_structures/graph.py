@@ -11,6 +11,12 @@ class Connection(object):
         self.node = node
         self.weight = weight
 
+    def __iter__(self):
+        # this function allows to unwrap this class into a tuple, in a for loop for example or
+        # node, weight = conn()
+        yield self.node
+        yield self.weight
+
 
 class Node(object):
     def __init__(self, data=None, connections=None):
@@ -70,6 +76,9 @@ class Node(object):
         next_nodes = [node_and_weight.node for node_and_weight in self.connections]
         return next_nodes
 
+    def get_connections(self):
+        return self.connections
+
     def wrap_into_structure(self):
         # mandatory to run bfs and dfs
         return Graph(nodes=[self])
@@ -100,8 +109,9 @@ class Graph(object):
         return graph
 
     def get_node(self, data):
+        is_node = isinstance(data, Node)
         for node in self.nodes:
-            if node.data == data:
+            if (node.data == data and not is_node) or (node == data and is_node):
                 return node
         return None
 
@@ -117,9 +127,7 @@ class Graph(object):
         self._starting_node = None
 
     def pop_node(self, data_or_node):
-        node = data_or_node
-        if not isinstance(data_or_node, Node):
-            node = self.get_node(data_or_node)
+        node = self.get_node(data_or_node)
         for i in range(len(self.nodes)):
             if node == self.nodes[i]:
                 for cur_node in self.nodes:  # delete existing connections
@@ -132,12 +140,8 @@ class Graph(object):
         return node
 
     def add_connection(self, data_or_node_1, data_or_node_2, weight=1, bidirectional=True):
-        node_1 = data_or_node_1
-        if not isinstance(data_or_node_1, Node):
-            node_1 = self.get_node(data_or_node_1)
-        node_2 = data_or_node_2
-        if not isinstance(data_or_node_2, Node):
-            node_2 = self.get_node(data_or_node_2)
+        node_1 = self.get_node(data_or_node_1)
+        node_2 = self.get_node(data_or_node_2)
         if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
             raise Exception('Please provides nodes contained in the graph')
         node_1.connections.append(Connection(node_2, weight))
@@ -145,12 +149,8 @@ class Graph(object):
             node_2.connections.append(Connection(node_1, weight))
 
     def remove_connection(self, data_or_node_1, data_or_node_2, bidirectional=True):
-        node_1 = data_or_node_1
-        if not isinstance(data_or_node_1, Node):
-            node_1 = self.get_node(data_or_node_1)
-        node_2 = data_or_node_2
-        if not isinstance(data_or_node_2, Node):
-            node_2 = self.get_node(data_or_node_2)
+        node_1 = self.get_node(data_or_node_1)
+        node_2 = self.get_node(data_or_node_2)
         if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
             raise Exception('Please provides nodes contained in the graph')
         for i in range(len(node_1.connections)):
@@ -167,6 +167,7 @@ class Graph(object):
         string = ''
         for node in self.nodes:
             string = f'{string}{node.data}:\n'
+            node.connections.sort(key=lambda x: x.weight)  # just allow comparison using strings
             for conn in node.connections:
                 string = f'{string}\t--{conn.weight}--> {conn.node.data}\n'
         return string
@@ -177,8 +178,13 @@ class Graph(object):
     def __len__(self):
         return self.count()
 
+    def get_nodes(self):
+        return self.nodes
+
     def get_first_node(self):
         # mandatory to run bfs and dfs
+        if self._starting_node is None:
+            raise Exception('First node was not defined')
         return self._starting_node
 
     def get_next_nodes(self):
@@ -202,9 +208,7 @@ class Graph(object):
             return bfs_itr(self, string_output=string_output)
 
     def _set_starting_node(self, starting_node_or_data):
-        node = starting_node_or_data
-        if not isinstance(starting_node_or_data, Node):
-            node = self.get_node(starting_node_or_data)
+        node = self.get_node(starting_node_or_data)
         if node is None or node not in self.nodes:
             raise Exception('Please provides nodes contained in the graph')
         self._starting_node = node
@@ -303,6 +307,13 @@ class Graph(object):
             return self._has_circle_rec(get_circle=get_circle)
         else:
             return self._has_circle_iter(get_circle=get_circle)
+
+    def export_connections(self):
+        connections = []  # src - weight - dst
+        for node in self.nodes:
+            for conn_node, weight in node.get_connections():
+                connections.append([node, weight, conn_node])
+        return connections
 
     def __eq__(self, other):
         if not isinstance(other, Graph):

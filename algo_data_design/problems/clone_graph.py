@@ -7,6 +7,8 @@ test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Clone Graph")
     print("Run a deep clone on the given graph")
     print(
@@ -112,7 +114,8 @@ def main():
     original = create_node()
     new_graph = run(original)
     assert_equal_but_not_same(original, new_graph)
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

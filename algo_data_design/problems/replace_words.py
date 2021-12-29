@@ -7,6 +7,8 @@ test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Replace words")
     print("In English a word can be formed by the union of a root and another word, the new one is called successor")
     print("The root `an` + the word `other` forms the successor `another`")
@@ -81,7 +83,8 @@ def main():
     info()
     test.assertEqual("the cat was rat by the bat", run(["cat", "bat", "rat"], "the cattle was rattled by the battery"))
     test.assertEqual("a a b c", run(["a", "b", "c"], "aadsfasf absbs bbab cadsfafs"))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

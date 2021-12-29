@@ -7,6 +7,8 @@ from algo_data_design.utils import input as u_input
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Nth Fibonacci number")
     print("The Fibonacci sequence is given by:")
     print("\t F(0) = 0")
@@ -78,7 +80,8 @@ def main():
     test.assertEqual(144, run(13))
     test.assertEqual(196418, run(28))
     test.assertEqual(7540113804746346429, run(93))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

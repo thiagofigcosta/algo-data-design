@@ -1,11 +1,14 @@
 import unittest
 
+import algo_data_design.problems
 import algo_data_design.utils.random as u_random
 
 test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Sum of Two Integers")
     print("Compute the sum of two integers without using the + and - operators")
     print('\t50, 1 -> 51')
@@ -152,7 +155,8 @@ def main():
         expected = a + b
         actual = run(a, b)
         test.assertEqual(expected, actual, msg='{} + {} = {} not {}'.format(a, b, expected, actual))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

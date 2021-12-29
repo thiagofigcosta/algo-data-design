@@ -10,3 +10,4 @@ from algo_data_design.problems import word_len
 from algo_data_design.problems.__main__ import main as run_problems
 
 NO_PROMPT = False
+NO_INFO = False

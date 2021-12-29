@@ -1,11 +1,14 @@
 import unittest
 
+import algo_data_design.problems
 from algo_data_design.data_structures import Stack
 
 test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Matching parenthesis")
     print("For a given string input containing the chars `(` and `)` return:")
     print("\t True - If there is a closing parenthesis after every open parenthesis")
@@ -36,7 +39,8 @@ def main():
     info()
     test.assertFalse(run(')())'))
     test.assertTrue(run('(()()(((())())))'))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

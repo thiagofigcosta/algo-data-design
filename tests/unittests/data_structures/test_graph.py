@@ -74,6 +74,11 @@ class GraphTest(unittest.TestCase):
         matrix = [[0, 1, 0, 1], [0, 0, 1, 0], [1, 0, 0, 0], [1, 0, 0, 0]]
         self.assertEqual(self.graph_circle, Graph.build_from_matrix(matrix))
 
+    def test_to_matrix_3d_fail(self, *args, **kwargs):
+        graph = self.graph_circle.copy()
+        graph.add_connection(1, 2, weight=3)
+        self.assertRaises(Exception, graph.to_matrix)
+
     def test_dfs_and_bfs(self):
         self.assertEqual('0 -> 1 -> 3 -> 2', self.graph_circle.breadth_first_search(0, string_output=True))
         self.assertEqual('0 -> 1 -> 2 -> 3', self.graph_circle.depth_first_search(0, string_output=True))

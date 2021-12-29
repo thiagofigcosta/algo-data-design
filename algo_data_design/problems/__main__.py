@@ -4,12 +4,14 @@ from algo_data_design.utils import input as u_input
 
 
 def print_problem_title(i, name):
-    print('\t{} - {}'.format(i, name))
+    if not algo_data_design.problems.NO_INFO:
+        print('\t{} - {}'.format(i, name))
     return i + 1
 
 
 def problems_info():
-    print('Problems')
+    if not algo_data_design.problems.NO_INFO:
+        print('Problems')
     i = print_problem_title(1, 'Matching Parenthesis')
     i = print_problem_title(i, 'Nth Fibonacci')
     i = print_problem_title(i, 'Replace words')
@@ -19,7 +21,8 @@ def problems_info():
     i = print_problem_title(i, 'Climbing Stairs')
     i = print_problem_title(i, 'Coin change')
     i = print_problem_title(i, 'Clone graph')
-    print()
+    if not algo_data_design.problems.NO_INFO:
+        print()
     return i - 1
 
 
@@ -51,7 +54,8 @@ def main():
             clone_graph.main()
         else:
             raise Exception('Unknown problem `{}`'.format(problem))
-        print()
+        if not algo_data_design.problems.NO_INFO:
+            print()
 
 
 if __name__ == "__main__":

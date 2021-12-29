@@ -7,6 +7,8 @@ test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Climbing stairs")
     print("If you have to climb n steps of a stair, and you could climb one or two steps at the time,")
     print("in how many ways you could climb it?")
@@ -53,7 +55,8 @@ def main():
     test.assertEqual(3, run(3))
     test.assertEqual(8, run(5))
     test.assertEqual(1836311903, run(45))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":

@@ -7,6 +7,8 @@ test = unittest.TestCase()
 
 
 def info():
+    if algo_data_design.problems.NO_INFO:
+        return
     print("Coin change")
     print("For a given list of coins and a target amount, compute the minimum amount of coins that need to be summed")
     print("in order to achieve the target amount. It is assumable that amount of coins of each kind are infinite.")
@@ -178,7 +180,8 @@ def main():
     test.assertEqual(0, run([1], 0))
     test.assertEqual(1, run([1], 1))
     test.assertEqual(20, run([186, 419, 83, 408], 6249))
-    print('All tests passed')
+    if not algo_data_design.problems.NO_INFO:
+        print('All tests passed')
 
 
 if __name__ == "__main__":
