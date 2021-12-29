@@ -6,8 +6,6 @@ class Connection(object):
     def __init__(self, node, weight=1):
         if not isinstance(node, Node):
             raise Exception('Provide a Node object')
-        if weight <= 0:
-            raise Exception('Weight must be a positive number')
         self.node = node
         self.weight = weight
 
@@ -83,6 +81,15 @@ class Node(object):
         # mandatory to run bfs and dfs
         return Graph(nodes=[self])
 
+    def get_connection_to(self, node):
+        for conn in self.connections:
+            if conn.node == node:
+                return conn
+        return None
+
+    def add_connection(self, dst, weight=1):
+        self.connections.append(Connection(dst, weight))
+
 
 class Graph(object):
     def __init__(self, nodes=None):
@@ -112,7 +119,7 @@ class Graph(object):
         is_node = isinstance(data, Node)
         for node in self.nodes:
             if (node.data == data and not is_node) or (node == data and is_node):
-                return node
+                return node  # return the one from the list, not the one from argument
         return None
 
     def contains(self, data):
@@ -144,9 +151,9 @@ class Graph(object):
         node_2 = self.get_node(data_or_node_2)
         if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
             raise Exception('Please provides nodes contained in the graph')
-        node_1.connections.append(Connection(node_2, weight))
+        node_1.add_connection(node_2, weight)
         if bidirectional:
-            node_2.connections.append(Connection(node_1, weight))
+            node_2.add_connection(node_1, weight)
 
     def remove_connection(self, data_or_node_1, data_or_node_2, bidirectional=True):
         node_1 = self.get_node(data_or_node_1)
@@ -231,6 +238,12 @@ class Graph(object):
         equivalence = {}  # create a dict to store the already cloned nodes
         nodes = __copy(self.nodes, equivalence)  # clone recursively
         return Graph(nodes=nodes)  # return new tree
+
+    def copy_preserving_node_uuid(self):
+        new_graph = self.copy()
+        for n in range(len(self.nodes)):
+            new_graph.nodes[n]._uuid = self.nodes[n]
+        return new_graph
 
     def to_matrix(self):
         amount_nodes = len(self)

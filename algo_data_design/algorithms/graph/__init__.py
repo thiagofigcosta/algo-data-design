@@ -47,6 +47,7 @@ from .dijkstra import shortest_path as dijkstra_shortest_path, replace_node_key_
 from .union_find import union, find, has_circle as has_circle_union_find, Subset as UnionFindSubset
 from .prim import minimum_spanning_tree as prim_minimum_spanning_tree
 from .kruskal import minimum_spanning_tree as kruskal_minimum_spanning_tree
+from .ford_fulkerson import maximum_flow
 
 
 def minimum_spanning_tree(graph, method=MinimumSpanningTreeMethod.KRUSKAL, get_cost=False, get_tree=True):

@@ -34,6 +34,19 @@ class GraphAlgorithmsTest(unittest.TestCase):
         self.graph_2.add_connection(6, 1, 14)
         self.graph_2.add_connection(1, 2, 16)
 
+        self.graph_3 = Graph()
+        for i in range(6):
+            self.graph_3.add_node(i)
+        self.graph_3.add_connection(0, 1, 10, bidirectional=False)
+        self.graph_3.add_connection(0, 2, 10, bidirectional=False)
+        self.graph_3.add_connection(1, 2, 2, bidirectional=False)
+        self.graph_3.add_connection(1, 3, 4, bidirectional=False)
+        self.graph_3.add_connection(1, 4, 8, bidirectional=False)
+        self.graph_3.add_connection(2, 4, 9, bidirectional=False)
+        self.graph_3.add_connection(3, 5, 10, bidirectional=False)
+        self.graph_3.add_connection(4, 3, 6, bidirectional=False)
+        self.graph_3.add_connection(4, 5, 10, bidirectional=False)
+
         self.graph_linear = Graph()
         for i in range(4):
             self.graph_linear.add_node(i)
@@ -71,6 +84,12 @@ class GraphAlgorithmsTest(unittest.TestCase):
             tree, cost = graph.minimum_spanning_tree(self.graph_2, get_cost=True, method=method)
             self.assertEqual(expected_cost, cost)
             self.assertEqual(expected_tree, str(tree))
+
+    def test_maximum_flow(self, *args, **kwargs):
+        graph_copy = self.graph_3.copy()
+        expected_flux = 19
+        self.assertEqual(expected_flux, graph.maximum_flow(self.graph_3, 0, 5))
+        self.assertEqual(graph_copy, self.graph_3)  # make sure that this is not the residual
 
 
 if __name__ == '__main__':

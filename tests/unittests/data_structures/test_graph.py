@@ -54,6 +54,22 @@ class GraphTest(unittest.TestCase):
     def test_copy(self, *args, **kwargs):
         graph = self.graph_circle.copy()
         graph_to_change = self.graph_circle.copy()
+        for i in range(len(graph.nodes)):
+            self.assertNotEqual(graph.nodes[i], graph_to_change.nodes[i])
+        self.assertEqual(graph, graph_to_change)
+        self.assertEqual(graph, self.graph_circle)
+        reference_graph_to_change = graph_to_change
+        self.assertEqual(reference_graph_to_change.nodes[0].data, graph_to_change.nodes[0].data)
+        graph_to_change.nodes[0].data = 50
+        self.assertEqual(50, graph_to_change.nodes[0].data)
+        self.assertEqual(50, reference_graph_to_change.nodes[0].data)
+        self.assertNotEqual(50, graph.nodes[0].data)
+
+    def test_copy_preserving_node_uuid(self, *args, **kwargs):
+        graph = self.graph_circle.copy_preserving_node_uuid()
+        graph_to_change = self.graph_circle.copy_preserving_node_uuid()
+        for i in range(len(graph.nodes)):
+            self.assertEqual(graph.nodes[i], graph_to_change.nodes[i])
         self.assertEqual(graph, graph_to_change)
         self.assertEqual(graph, self.graph_circle)
         reference_graph_to_change = graph_to_change
