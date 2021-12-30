@@ -66,3 +66,6 @@ class PriorityQueue(object):
         if not isinstance(other, PriorityQueue):
             return False
         return self._array == other._array and self._limit == other._limit and self._min == other._min
+
+    def sort(self):
+        self._array.sort(key=lambda x: x[PriorityQueue.PRIORITY_INDEX], reverse=not self._min)
