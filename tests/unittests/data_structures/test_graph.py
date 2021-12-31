@@ -95,11 +95,11 @@ class GraphTest(unittest.TestCase):
         graph.add_connection(1, 2, weight=3)
         self.assertRaises(Exception, graph.to_matrix)
 
-    def test_dfs_and_bfs(self):
+    def test_dfs_and_bfs(self, *args, **kwargs):
         self.assertEqual('0 -> 1 -> 3 -> 2', self.graph_circle.breadth_first_search(0, string_output=True))
         self.assertEqual('0 -> 1 -> 2 -> 3', self.graph_circle.depth_first_search(0, string_output=True))
 
-    def test_remove_connection(self):
+    def test_remove_connection(self, *args, **kwargs):
         graph = self.graph_circle.copy()
         expected_graph_0 = "0:\n\t--1--> 1\n\t--1--> 3\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
         self.assertEqual(expected_graph_0, str(graph))
@@ -111,7 +111,7 @@ class GraphTest(unittest.TestCase):
         expected_graph_2 = "0:\n\t--1--> 1\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
         self.assertEqual(expected_graph_2, str(graph))
 
-    def test_pop_node_and_contains(self):
+    def test_pop_node_and_contains(self, *args, **kwargs):
         graph = self.graph_circle.copy()
         expected_graph_0 = "0:\n\t--1--> 1\n\t--1--> 3\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n3:\n\t--1--> 0\n"
         self.assertEqual(expected_graph_0, str(graph))
@@ -121,7 +121,7 @@ class GraphTest(unittest.TestCase):
         expected_graph_1 = "1:\n\t--1--> 2\n2:\n3:\n"
         self.assertEqual(expected_graph_1, str(graph))
 
-    def test_has_circle(self):
+    def test_has_circle(self, *args, **kwargs):
         has_circle, circle = self.graph_circle.has_circle(get_circle=True, recursive=False)
         self.assertTrue(has_circle)
         self.assertEqual({0, 1, 2}, set([el.data for el in circle]))
@@ -131,6 +131,19 @@ class GraphTest(unittest.TestCase):
         self.assertTrue(has_circle)
         self.assertEqual({0, 1, 2}, set([el.data for el in circle]))
         self.assertFalse(self.graph_linear.has_circle(recursive=True))
+
+    def test_transpose(self, *args, **kwargs):
+        graph = Graph()
+        for i in range(3):
+            graph.add_node(i)
+        graph.add_connection(0, 1, bidirectional=False)
+        graph.add_connection(1, 2, bidirectional=False)
+        graph.add_connection(2, 0, bidirectional=False)
+        expected_graph_str = '0:\n\t--1--> 1\n1:\n\t--1--> 2\n2:\n\t--1--> 0\n'
+        self.assertEqual(expected_graph_str, str(graph))
+        expected_transposed_graph_str = '0:\n\t--1--> 2\n1:\n\t--1--> 0\n2:\n\t--1--> 1\n'
+        graph.transpose()
+        self.assertEqual(expected_transposed_graph_str, str(graph))
 
 
 if __name__ == '__main__':

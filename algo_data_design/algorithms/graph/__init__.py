@@ -49,6 +49,7 @@ from .prim import minimum_spanning_tree as prim_minimum_spanning_tree
 from .kruskal import minimum_spanning_tree as kruskal_minimum_spanning_tree
 from .ford_fulkerson import maximum_flow
 from .a_star import shortest_path, traverse as a_star_traverse
+from .kosaraju import strongly_connected_components
 
 
 def minimum_spanning_tree(graph, method=MinimumSpanningTreeMethod.KRUSKAL, get_cost=False, get_tree=True):

@@ -265,6 +265,7 @@ class Graph(object):
         visited = set()  # to avoid visiting the same twice
         current_depth_line = set()  # used to detect the circle, if we visit the same node on the current
         # line twice there is a circle
+        # the line is the string of nodes in depth until the last reachable one
         to_visit = Stack(first_el=(False, self.nodes[0]))  # False means we will visit this node, not finish the line
         while len(to_visit) > 0:
             finish_line, visiting = to_visit.pop()
@@ -272,8 +273,8 @@ class Graph(object):
                 current_depth_line.remove(visiting)  # remove the element from the line, since we finished this line
             elif visiting not in visited:  # visit just if not visited
                 to_visit.push((True, visiting))  # mark to remove from line, this is need to avoid recursion if we
-                # were using recursion we would just remove the element from the line after finishing all neighbors
-                # recursion calls
+                # were using recursion we would just remove the element from the line after finishing all
+                # neighbors' recursion calls
                 visited.add(visiting)  # mark as visited
                 current_depth_line.add(visiting)  # visit, put on the current depth line to check circle
                 for branch in reversed(visiting.get_next_nodes()):
@@ -332,3 +333,15 @@ class Graph(object):
         if not isinstance(other, Graph):
             return False
         return str(self) == str(other)
+
+    def transpose(self):
+        connection_mapper = {}
+        for node in self.nodes:  # create and fill a map to store the reverse connections temporarily
+            connection_mapper[node] = []  # [new_dst, weight]
+        for node in self.nodes:
+            for conn_node, weight in node.get_connections():
+                connection_mapper[conn_node].append((node, weight))
+            node.connections = []
+        for node, conns in connection_mapper.items():
+            for new_dst, weight in conns:
+                node.add_connection(new_dst, weight)

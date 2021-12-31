@@ -103,7 +103,7 @@ class GraphAlgorithmsTest(unittest.TestCase):
         for method in graph.DijkstraMethod.get_all_methods():
             self.assertEqual(expected_distance, graph.shortest_paths_cost(self.graph_1, 0, 5, method=method))
 
-    def test_union_find(self):
+    def test_union_find(self, *args, **kwargs):
         self.assertEqual(self.graph_1.has_circle(), graph.has_circle_union_find(self.graph_1))
         self.assertEqual(self.graph_2.has_circle(), graph.has_circle_union_find(self.graph_2))
         self.assertEqual(self.graph_linear.has_circle(), graph.has_circle_union_find(self.graph_linear))
@@ -147,6 +147,49 @@ class GraphAlgorithmsTest(unittest.TestCase):
                                                node_coordinates_with_end_point)
         visiting_order = [node.data for node in visiting_order]
         self.assertEqual(expected_order, visiting_order)
+
+    def test_strongly_connected_components(self, *args, **kwargs):
+        graph_to_scc = Graph()
+        for i in range(16):
+            graph_to_scc.add_node(i)
+        graph_to_scc.add_connection(0, 1, bidirectional=False)
+        graph_to_scc.add_connection(1, 3, bidirectional=False)
+        graph_to_scc.add_connection(1, 8, bidirectional=False)
+        graph_to_scc.add_connection(1, 2, bidirectional=False)
+        graph_to_scc.add_connection(2, 0, bidirectional=False)
+        graph_to_scc.add_connection(3, 4, bidirectional=False)
+        graph_to_scc.add_connection(3, 2, bidirectional=False)
+        graph_to_scc.add_connection(3, 7, bidirectional=False)
+        graph_to_scc.add_connection(4, 6, bidirectional=False)
+        graph_to_scc.add_connection(5, 4, bidirectional=False)
+        graph_to_scc.add_connection(6, 5, bidirectional=False)
+        graph_to_scc.add_connection(7, 12, bidirectional=False)
+        graph_to_scc.add_connection(7, 10, bidirectional=False)
+        graph_to_scc.add_connection(7, 12, bidirectional=False)
+        graph_to_scc.add_connection(7, 8, bidirectional=False)
+        graph_to_scc.add_connection(8, 11, bidirectional=False)
+        graph_to_scc.add_connection(9, 7, bidirectional=False)
+        graph_to_scc.add_connection(10, 11, bidirectional=False)
+        graph_to_scc.add_connection(10, 14, bidirectional=False)
+        graph_to_scc.add_connection(11, 9, bidirectional=False)
+        graph_to_scc.add_connection(11, 15, bidirectional=False)
+        graph_to_scc.add_connection(12, 14, bidirectional=False)
+        graph_to_scc.add_connection(12, 13, bidirectional=False)
+        graph_to_scc.add_connection(13, 15, bidirectional=False)
+        graph_to_scc.add_connection(14, 12, bidirectional=False)
+        graph_to_scc.add_connection(15, 14, bidirectional=False)
+        for recursive in (True, False):
+            scc = graph.strongly_connected_components(graph_to_scc, recursive)
+            scc = [set([node.data for node in nodes]) for nodes in scc]
+            scc.sort(key=lambda x: max(x))  # python uses a stable sort algorithm, so I can sort twice
+            scc.sort(
+                key=lambda x: len(x))  # to sort first by len() and when lens are equal, the max decides who goes first
+            expected_scc = 4
+            self.assertEqual(expected_scc, len(scc))
+            self.assertEqual({4, 5, 6}, scc[0])
+            self.assertEqual({0, 1, 2, 3}, scc[1])
+            self.assertEqual({12, 13, 14, 15}, scc[2])
+            self.assertEqual({7, 8, 9, 10, 11}, scc[3])
 
 
 if __name__ == '__main__':
