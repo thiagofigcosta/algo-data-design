@@ -55,20 +55,53 @@ class GraphAlgorithmsTest(unittest.TestCase):
         self.graph_linear.add_connection(1, 3)
         self.graph_linear.add_connection(2, 0)
 
+        # The grid with geolocations of the geo_referenced_graph
+        # X = blocked path
+        #  | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | - coordinates
+        # -|--------------------------------
+        # 0| 6 |   | X |   |   | X | 4 |   |
+        # -|--------------------------------
+        # 1|   |   | 1 |   |   | 2 |   |   |
+        # -|--------------------------------
+        # 2|   | X | X | 3 |   |   |   | 5 |
+        # -|--------------------------------
+        # 3| 0 |   | X |   |   | X |   |   |
+        # ----------------------------------
+        self.geo_referenced_graph = Graph()
+        self.nodes_coordinates = {}
+        for i in range(7):
+            self.geo_referenced_graph.add_node(i)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(6)] = (0, 0)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(4)] = (0, 6)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(1)] = (1, 2)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(2)] = (1, 5)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(3)] = (2, 3)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(5)] = (2, 7)
+        self.nodes_coordinates[self.geo_referenced_graph.get_node(0)] = (3, 0)
+        self.geo_referenced_graph.add_connection(6, 1, 3)
+        self.geo_referenced_graph.add_connection(6, 0, 3)
+        self.geo_referenced_graph.add_connection(0, 1, 4)
+        self.geo_referenced_graph.add_connection(1, 3, 2)
+        self.geo_referenced_graph.add_connection(1, 2, 3)
+        self.geo_referenced_graph.add_connection(3, 5, 4)
+        self.geo_referenced_graph.add_connection(3, 2, 3)
+        self.geo_referenced_graph.add_connection(2, 4, 2)
+        self.geo_referenced_graph.add_connection(4, 5, 3)
+
     def tearDown(self, *args, **kwargs):
         pass
 
     def test_dijkstra(self, *args, **kwargs):
         expected_distances = {0: 0, 1: 2, 2: 6, 3: 7, 4: 17, 5: 22, 6: 19}
         for method in graph.DijkstraMethod.get_all_methods():
-            distances = graph.dijkstra_shortest_path(self.graph_1, 0, method=method)
+            distances = graph.shortest_paths_cost(self.graph_1, 0, method=method)
             actual_distances = graph.replace_node_key_by_data_key(distances)
             self.assertEqual(expected_distances, actual_distances)
 
     def test_dijkstra_with_dst(self, *args, **kwargs):
         expected_distance = 22
         for method in graph.DijkstraMethod.get_all_methods():
-            self.assertEqual(expected_distance, graph.dijkstra_shortest_path(self.graph_1, 0, 5, method=method))
+            self.assertEqual(expected_distance, graph.shortest_paths_cost(self.graph_1, 0, 5, method=method))
 
     def test_union_find(self):
         self.assertEqual(self.graph_1.has_circle(), graph.has_circle_union_find(self.graph_1))
@@ -90,6 +123,30 @@ class GraphAlgorithmsTest(unittest.TestCase):
         expected_flux = 19
         self.assertEqual(expected_flux, graph.maximum_flow(self.graph_3, 0, 5))
         self.assertEqual(graph_copy, self.graph_3)  # make sure that this is not the residual
+
+    def test_a_star(self, *args, **kwargs):
+        expected_cost = 10
+        expected_path = [0, 1, 3, 5]
+        start_node = self.geo_referenced_graph.get_node(0)
+        end_node = self.geo_referenced_graph.get_node(5)
+
+        path, cost = graph.shortest_path(self.geo_referenced_graph, start_node, end_node, self.nodes_coordinates)
+        path = [node.data for node in path]
+        cost_dijkstra = graph.shortest_paths_cost(self.geo_referenced_graph, start_node, end_node)
+        self.assertEqual(expected_cost, cost)
+        self.assertEqual(expected_path, path)
+        self.assertEqual(expected_cost, cost_dijkstra)
+
+    def test_a_star_traverse(self, *args, **kwargs):
+        start_node = self.geo_referenced_graph.get_node(6)
+        end_coordinates = (3, 7)
+        node_coordinates_with_end_point = self.nodes_coordinates.copy()
+        node_coordinates_with_end_point[end_coordinates] = end_coordinates
+        expected_order = [6, 1, 2, 3, 0, 5, 4]
+        visiting_order = graph.a_star_traverse(self.geo_referenced_graph, start_node, end_coordinates,
+                                               node_coordinates_with_end_point)
+        visiting_order = [node.data for node in visiting_order]
+        self.assertEqual(expected_order, visiting_order)
 
 
 if __name__ == '__main__':

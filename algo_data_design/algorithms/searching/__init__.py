@@ -1,4 +1,4 @@
-from .a_star import a_star_grid_search
+from .a_star import a_star_grid_search, Heuristic as AStarHeuristic, Metadata as AStarMetadata
 from .binary import search as binary_search
 from .binary import search_with_hits as binary_search_with_hits
 from .breadth_first_search import breadth_first_search_iterative as bfs_itr, breadth_first_search_recursive as bfs_rec, \
