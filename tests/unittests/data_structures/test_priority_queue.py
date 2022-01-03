@@ -3,7 +3,7 @@ import unittest
 from algo_data_design.data_structures import PriorityQueue
 
 
-class QueueTest(unittest.TestCase):
+class PriorityQueueTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
         pass

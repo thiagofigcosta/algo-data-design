@@ -1,4 +1,7 @@
 import sys
+import time as time_lib
+
+from algo_data_design.utils import random as u_random
 
 try:  # if Python >= 3.3 uses the new high-res counter and keep running even when thread sleeps
     from time import perf_counter as _time_time
@@ -51,3 +54,15 @@ def timestamp_to_human_readable_str(timestamp, seconds=True):
     if MS > 0:
         out += '{} milliseconds '.format(MS)
     return out
+
+
+def exponential_backoff(cur_retry, max_attempts, backoff_in_secs):
+    # cur_retry starts with zero
+    if cur_retry < max_attempts:
+        exponential_delay = (2 ** cur_retry) * backoff_in_secs
+        random_delay = u_random.random_float()
+        time_lib.sleep(exponential_delay + random_delay)
+    else:
+        raise Exception(f'Too many retries (`{max_attempts}`)')
+    cur_retry += 1
+    return cur_retry

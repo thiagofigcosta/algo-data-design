@@ -21,6 +21,10 @@ def problems_info():
     i = print_problem_title(i, 'Climbing Stairs')
     i = print_problem_title(i, 'Coin change')
     i = print_problem_title(i, 'Clone graph')
+    i = print_problem_title(i, 'Longest Common Subsequence')
+    i = print_problem_title(i, 'Insert interval')
+    i = print_problem_title(i, 'Reverse Linked List')
+    i = print_problem_title(i, 'Set matrix zeroes')
     if not algo_data_design.problems.NO_INFO:
         print()
     return i - 1
@@ -52,6 +56,14 @@ def main():
             coin_change.main()
         elif problem == 9:
             clone_graph.main()
+        elif problem == 10:
+            longest_common_subsequence.main()
+        elif problem == 11:
+            insert_interval.main()
+        elif problem == 12:
+            reverse_linked_list.main()
+        elif problem == 13:
+            set_matrix_zeroes.main()
         else:
             raise Exception('Unknown problem `{}`'.format(problem))
         if not algo_data_design.problems.NO_INFO:

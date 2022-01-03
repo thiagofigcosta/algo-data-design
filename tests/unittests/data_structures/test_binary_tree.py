@@ -3,7 +3,7 @@ import unittest
 from algo_data_design.data_structures import BinaryTree, BinaryTreeNode as Node
 
 
-class TreeTest(unittest.TestCase):
+class BinaryTreeTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
         self.tree_1 = BinaryTree(
