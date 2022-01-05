@@ -116,11 +116,11 @@ def run_appending_one_by_one(linked_lists):
         done = True
         for l, linked_list in enumerate(linked_lists):  # get the smallest element
             if linked_list is not None:
-                done = False # if there is a single list that wasn't fully iterated we continue
+                done = False  # if there is a single list that wasn't fully iterated we continue
                 if min_value is None or linked_list.val < min_value:
                     min_value = linked_list.val
                     min_index = l
-        if min_index is not None: # insert the smallest on final linked list
+        if min_index is not None:  # insert the smallest on final linked list
             if merged_list_current is None:
                 merged_list_current = Node(min_value)
                 merged_list_head = merged_list_current
