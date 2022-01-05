@@ -108,7 +108,7 @@ def main():
     elif solution == 2:
         run = run_approach_2
     else:
-        raise Exception('Unknown solution')
+        raise AttributeError('Unknown solution')
     info()
     test.assertEqual(None, run(None))
     original = create_node()

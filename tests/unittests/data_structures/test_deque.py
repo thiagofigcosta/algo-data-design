@@ -6,10 +6,10 @@ from algo_data_design.data_structures import Deque
 class DequeTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to instantiate
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_push_pop_len_unlimited_size(self, *args, **kwargs):
         d = Deque()

@@ -1,9 +1,9 @@
 import unittest
 
 import algo_data_design.problems
+from algo_data_design.utils import input as u_input
 
 test = unittest.TestCase()
-from algo_data_design.utils import input as u_input
 
 
 def info():
@@ -73,7 +73,7 @@ def main():
     elif solution == 3:
         run = run_sub_optimal
     else:
-        raise Exception('Unknown solution')
+        raise AttributeError('Unknown solution')
     info()
     test.assertEqual(1, run(2))
     test.assertEqual(2, run(4))

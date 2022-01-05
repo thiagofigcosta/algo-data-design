@@ -58,4 +58,4 @@ def minimum_spanning_tree(graph, method=MinimumSpanningTreeMethod.KRUSKAL, get_c
     elif method == MinimumSpanningTreeMethod.PRIM:
         return prim_minimum_spanning_tree(graph, get_cost=get_cost, get_tree=get_tree)
     else:
-        raise Exception(f'Unknown method {method}')
+        raise AttributeError(f'Unknown method {method}')

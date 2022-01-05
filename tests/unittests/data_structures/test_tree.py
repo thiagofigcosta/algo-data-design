@@ -16,7 +16,7 @@ class TreeTest(unittest.TestCase):
         self.this_is_not_a_tree_is_a_graph = Tree(root)
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_copy(self, *args, **kwargs):
         # using this circular graph to test the algorithm reliability

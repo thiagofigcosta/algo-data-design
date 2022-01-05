@@ -7,10 +7,10 @@ from algo_data_design.data_structures import heap
 class HeapTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_max_heap_build(self, *args, **kwargs):
         array = u_list.random_int_list(500, 0, 1000)

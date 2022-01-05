@@ -31,10 +31,10 @@ class MockedRandom(object):
 class TimeTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     @mock.patch('time.sleep', side_effect=tc(MockedTime.sleep, assert_time=True))
     @mock.patch('random.random', side_effect=tc(MockedRandom.random))

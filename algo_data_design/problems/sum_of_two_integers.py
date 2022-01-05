@@ -149,7 +149,7 @@ def main():
     test.assertEqual(45, run(-5, 50))
     test.assertEqual(62, run(31, 31))
     test.assertEqual(1292, run(983, 309))
-    for i in range(50):
+    for _ in range(50):
         a = u_random.random_int(-1000, 1000)
         b = u_random.random_int(-1000, 1000)
         expected = a + b

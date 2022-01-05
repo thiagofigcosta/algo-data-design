@@ -78,19 +78,19 @@ def _add_to_ll_and_retrieve_last(ll, last_ll_node, node_to_add):
 
 
 def _merge_linked_list(ll1, ll2):
-    ll = LinkedList()
-    ll_last = None
+    ll = LinkedList()  # merged linked list
+    ll_last = None  # pointer to the last node of the merged list
     cur_1 = ll1.head
     cur_2 = ll2.head
     # merging sorted arrays
     while cur_1 is not None and cur_2 is not None:
-        if cur_1 < cur_2:
+        if cur_1 < cur_2:  # appending the smaller element to the final list
             ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
             cur_1 = cur_1.next
         else:
             ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_2)
             cur_2 = cur_2.next
-    # moving the remainders
+    # moving the remainders, appending the left elements
     while cur_1 is not None:
         ll_last = _add_to_ll_and_retrieve_last(ll, ll_last, cur_1)
         cur_1 = cur_1.next

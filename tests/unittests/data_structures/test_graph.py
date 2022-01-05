@@ -32,7 +32,7 @@ class GraphTest(unittest.TestCase):
         self.graph_linear = Graph(nodes=[node_0, node_1, node_2, node_3])
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_construction(self, *args, **kwargs):
         graph = Graph()

@@ -65,6 +65,6 @@ def input_boolean():
             elif out.lower() in ('false', '0', 'f', 'n', 'no', 'nao', 'não', 'mentira'):
                 return False
             else:
-                raise Exception()
+                raise ValueError()
         except:
             print('ERROR. Not a boolean, type again: ')

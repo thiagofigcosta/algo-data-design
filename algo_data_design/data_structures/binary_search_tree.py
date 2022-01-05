@@ -124,7 +124,7 @@ class BinarySearchTree(BinaryTree):
             self.push_back(node.data)
 
     def invert(self):
-        raise Exception('Unsupported operation!')
+        raise RuntimeError('Unsupported operation!')
 
     def copy(self):
         copied = super().copy()

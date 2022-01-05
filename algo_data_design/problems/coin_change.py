@@ -173,7 +173,7 @@ def main():
     elif solution == 4:
         run = run_greedy
     else:
-        raise Exception('Unknown solution')
+        raise AttributeError('Unknown solution')
     info()
     test.assertEqual(3, run([1, 2, 5], 11))
     test.assertEqual(-1, run([2], 3))

@@ -6,10 +6,10 @@ from algo_data_design.data_structures import Queue
 class QueueTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_append_pop_len_unlimited_size(self, *args, **kwargs):
         q = Queue()

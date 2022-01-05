@@ -16,7 +16,7 @@ class BinaryTreeTest(unittest.TestCase):
             Node(0, Node(1, Node(2), Node(3)), Node(4, Node(5), Node(6, Node(2), Node(3)))))
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_copy(self, *args, **kwargs):
         # using this circular graph to test the algorithm reliability

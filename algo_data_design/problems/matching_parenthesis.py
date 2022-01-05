@@ -31,7 +31,7 @@ def run(parenthesis_sequence):
             else:
                 return False
         else:
-            raise Exception('Bad input')
+            raise ValueError('Bad input')
     return len(stack) == 0
 
 

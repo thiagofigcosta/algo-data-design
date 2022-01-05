@@ -13,4 +13,4 @@ def set_global_mocked_kwargs(**mocked_custom_kwargs):
 
 
 def clear_global_mocked_kwargs():
-    STATEFUL_TEST_KWARGS = {}
+    STATEFUL_TEST_KWARGS.clear()

@@ -79,7 +79,7 @@ def main():
     elif solution == 2:
         run = run_with_set
     else:
-        raise Exception('Unknown solution')
+        raise AttributeError('Unknown solution')
     info()
     test.assertEqual("the cat was rat by the bat", run(["cat", "bat", "rat"], "the cattle was rattled by the battery"))
     test.assertEqual("a a b c", run(["a", "b", "c"], "aadsfasf absbs bbab cadsfafs"))

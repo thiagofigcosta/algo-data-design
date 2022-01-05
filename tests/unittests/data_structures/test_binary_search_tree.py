@@ -18,7 +18,7 @@ class BinarySearchTreeTest(unittest.TestCase):
             Node(3, Node(1, Node(0), Node(2)), Node(5, Node(4), Node(6))))
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_init_validate(self, *args, **kwargs):
         expected_1 = '0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6'

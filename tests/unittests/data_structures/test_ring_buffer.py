@@ -6,10 +6,10 @@ from algo_data_design.data_structures import RingBuffer
 class RingBufferTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_ring_buffer_behavior(self, *args, **kwargs):
         rb = RingBuffer(3)

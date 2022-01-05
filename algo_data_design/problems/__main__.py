@@ -25,6 +25,9 @@ def problems_info():
     i = print_problem_title(i, 'Insert interval')
     i = print_problem_title(i, 'Reverse Linked List')
     i = print_problem_title(i, 'Set matrix zeroes')
+    i = print_problem_title(i, 'Longest Substring Without Repeating Characters')
+    i = print_problem_title(i, 'Maximum Depth of Binary Tree')
+    i = print_problem_title(i, 'Merge k Sorted Lists')
     if not algo_data_design.problems.NO_INFO:
         print()
     return i - 1
@@ -64,8 +67,14 @@ def main():
             reverse_linked_list.main()
         elif problem == 13:
             set_matrix_zeroes.main()
+        elif problem == 14:
+            longest_substring_without_repeating_characters.main()
+        elif problem == 15:
+            maximum_depth_of_binary_tree.main()
+        elif problem == 16:
+            merge_k_sorted_lists.main()
         else:
-            raise Exception('Unknown problem `{}`'.format(problem))
+            raise NotImplementedError('Unknown problem `{}`'.format(problem))
         if not algo_data_design.problems.NO_INFO:
             print()
 

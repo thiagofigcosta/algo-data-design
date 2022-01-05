@@ -76,10 +76,10 @@ def shortest_path(graph, starting_node_or_data, destination_node_or_data, node_c
 def _validate_inputs(graph, starting_node, destination_node, node_coordinates_map):
     for node in [starting_node, destination_node]:
         if node not in graph.nodes:
-            raise Exception('Unreachable nodes')
+            raise ValueError('Unreachable nodes')
     for node in graph.nodes:
         if node not in node_coordinates_map:
-            raise Exception('All nodes must have related coordinates')
+            raise ValueError('All nodes must have related coordinates')
 
 
 def traverse(graph, starting_node_or_data, destination_node_or_data, node_coordinates_map,

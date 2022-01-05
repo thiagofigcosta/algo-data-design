@@ -89,7 +89,7 @@ class GraphAlgorithmsTest(unittest.TestCase):
         self.geo_referenced_graph.add_connection(4, 5, 3)
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_dijkstra(self, *args, **kwargs):
         expected_distances = {0: 0, 1: 2, 2: 6, 3: 7, 4: 17, 5: 22, 6: 19}

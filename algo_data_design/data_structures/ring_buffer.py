@@ -27,13 +27,13 @@ class RingBuffer(object):
             self._read_pointer = self._circular_sum(self._read_pointer)
             self._cur_size = max(self._cur_size - 1, 0)
             return el
-        raise Exception('Empty buffer')
+        raise KeyError('Empty buffer')
 
     def get(self, i=0):
         if self._read_pointer != -1 and len(self) > 0 and i < len(self):
             i = self._circular_sum(self._read_pointer, i)
             return self._array[i]
-        raise Exception(f'Invalid position `{i}`')
+        raise KeyError(f'Invalid position `{i}`')
 
     def __getitem__(self, item):
         return self.get(item)

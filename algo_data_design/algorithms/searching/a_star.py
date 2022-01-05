@@ -49,7 +49,7 @@ class Heuristic(object):
 
     def __init__(self, type):
         if not isinstance(type, Heuristic.Type):
-            raise Exception('Invalid heuristic type')
+            raise ValueError('Invalid heuristic type')
         self.type = type
 
     def __eq__(self, other):
@@ -65,21 +65,21 @@ class Heuristic(object):
                 y_diff_squared = (goal_point[X_INDEX] - point[X_INDEX]) ** 2
                 h = math.sqrt(x_diff_squared + y_diff_squared)
             else:
-                raise Exception('Not implemented yet')
+                raise NotImplementedError('Not implemented yet')
         elif self.type == Heuristic.Type.MANHATTAN_DISTANCE:
             if is_2d_point:
                 x_diff_abs = abs(goal_point[Y_INDEX] - point[Y_INDEX])
                 y_diff_abs = abs(goal_point[X_INDEX] - point[X_INDEX])
                 h = x_diff_abs + y_diff_abs
             else:
-                raise Exception('Not implemented yet')
+                raise NotImplementedError('Not implemented yet')
         elif self.type == Heuristic.Type.CHEBYSHEV_DISTANCE:
             if is_2d_point:
                 x_diff = goal_point[Y_INDEX] - point[Y_INDEX]
                 y_diff = goal_point[X_INDEX] - point[X_INDEX]
                 h = max(x_diff, y_diff)
             else:
-                raise Exception('Not implemented yet')
+                raise NotImplementedError('Not implemented yet')
         elif self.type == Heuristic.Type.DIAGONAL_DISTANCE:
             if is_2d_point:
                 x_diff_abs = abs(goal_point[Y_INDEX] - point[Y_INDEX])
@@ -87,7 +87,7 @@ class Heuristic(object):
                 h = LATERAL_COST * (x_diff_abs + y_diff_abs) + (DIAGONAL_COST - 2 * LATERAL_COST) * min(x_diff_abs,
                                                                                                         y_diff_abs)
             else:
-                raise Exception('Not implemented yet')
+                raise NotImplementedError('Not implemented yet')
         elif self.type == Heuristic.Type.COSINE_DISTANCE:
             if is_2d_point:
                 dot_product = goal_point[Y_INDEX] * point[Y_INDEX] + goal_point[X_INDEX] * point[
@@ -97,11 +97,11 @@ class Heuristic(object):
                 cosine_similarity = dot_product / (magnitude_source * magnitude_destination)
                 h = 1 - cosine_similarity
             else:
-                raise Exception('Not implemented yet')
+                raise NotImplementedError('Not implemented yet')
         elif self.type == Heuristic.Type.DIJKSTRA:
             h = 0
         else:
-            raise Exception(f'Unknown method {self.type}')
+            raise AttributeError(f'Unknown method {self.type}')
         return h
 
 
@@ -154,15 +154,15 @@ def _validate_inputs(grid_2d, start_point, goal_point):
     row_length_x_size = len(grid_2d[0])
     for row in grid_2d:
         if len(row) != row_length_x_size:
-            raise Exception('Every row of the grid must have the same size')
+            raise ValueError('Every row of the grid must have the same size')
     if not _is_point_inside_grid(start_point, column_length_y_size, row_length_x_size):
-        raise Exception('Invalid starting point coordinates')
+        raise ValueError('Invalid starting point coordinates')
     if not _is_point_inside_grid(goal_point, column_length_y_size, row_length_x_size):
-        raise Exception('Invalid goal point coordinates')
+        raise ValueError('Invalid goal point coordinates')
     if _point_has_obstacle(start_point, grid_2d):
-        raise Exception('Starting point inside obstacle')
+        raise ValueError('Starting point inside obstacle')
     if _point_has_obstacle(goal_point, grid_2d):
-        raise Exception('Goal point unreachable')
+        raise ValueError('Goal point unreachable')
 
 
 def _is_point_inside_grid(point, y_length, x_length):

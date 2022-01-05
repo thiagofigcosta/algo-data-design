@@ -8,7 +8,7 @@ def sort(array, method=Method.OPTIMUM):
     elif method == Method.REGULAR:
         _regular_sort(array)
     else:
-        raise Exception(f'Unknown method {method}')
+        raise AttributeError(f'Unknown method {method}')
 
 
 def _optimum_sort(array):

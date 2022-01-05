@@ -56,13 +56,13 @@ class LinkedList(object):
                 return False
             else:
                 return self.head
-        tortoise = self.head
-        hare = self.head.next
+        tortoise = self.head  # the tortoise starts on the start point
+        hare = self.head.next  # the hare always starts first
         while hare is not None and hare.next is not None:
             if detect_circle and hare is tortoise:
                 return True
-            tortoise = tortoise.next
-            hare = hare.next.next
+            tortoise = tortoise.next  # tortoise move one step at the time
+            hare = hare.next.next  # hare jumps two steps at the time
         if detect_circle:
             return False
         else:
@@ -83,7 +83,7 @@ class LinkedList(object):
     def add_at(self, at, node):
         if self.is_empty():
             if at != 0:
-                raise Exception(f'Invalid position `{at}`')
+                raise KeyError(f'Invalid position `{at}`')
             self.head = node
             return
         previous = None
@@ -94,7 +94,7 @@ class LinkedList(object):
             current = current.next
             j += 1
         if at != j:
-            raise Exception(f'Invalid position `{at}`')
+            raise KeyError(f'Invalid position `{at}`')
         previous.next = node
         node.next = current
 
@@ -112,7 +112,7 @@ class LinkedList(object):
 
     def _get_or_pop_at(self, i, pop=False, get_node=False):
         if self.is_empty():
-            raise Exception(f'Invalid position `{i}`')
+            raise KeyError(f'Invalid position `{i}`')
         if i == 0:
             if pop:
                 return self.pop_first(get_node=get_node)
@@ -126,7 +126,7 @@ class LinkedList(object):
             current = current.next
             j += 1
         if i != j:
-            raise Exception(f'Invalid position `{i}`')
+            raise KeyError(f'Invalid position `{i}`')
         if pop:
             previous.next = current.next
         if get_node:
@@ -145,7 +145,7 @@ class LinkedList(object):
 
     def pop_first(self, get_node=False):
         if self.is_empty():
-            raise Exception('There is nothing to pop')
+            raise KeyError('There is nothing to pop')
         value = self.head.data
         self.head = self.head.next
         if get_node:
@@ -155,7 +155,7 @@ class LinkedList(object):
 
     def _get_or_pop_last(self, pop=False, get_node=False):
         if self.is_empty():
-            raise Exception('There is nothing to pop')
+            raise KeyError('There is nothing to pop')
         if self.is_one_sized():
             if pop:
                 return self.pop_first(get_node=get_node)

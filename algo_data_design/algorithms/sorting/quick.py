@@ -41,7 +41,7 @@ def _choose_pivot(array, left, right, method):
         c = array[right]
         return _median_of_3(a, b, c)
     else:
-        raise Exception(f'Unknown pivot method {method}')
+        raise AttributeError(f'Unknown pivot method {method}')
 
 
 def _sort_recursive(array, left, right, pivot_method):

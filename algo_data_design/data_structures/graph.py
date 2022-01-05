@@ -5,7 +5,7 @@ from algo_data_design.data_structures import Stack
 class Connection(object):
     def __init__(self, node, weight=1):
         if not isinstance(node, Node):
-            raise Exception('Provide a Node object')
+            raise ValueError('Provide a Node object')
         self.node = node
         self.weight = weight
 
@@ -23,7 +23,7 @@ class Node(object):
         else:
             for el in connections:
                 if not isinstance(el, Connection):
-                    raise Exception('Adjacency list must be an iterable containing Connections')
+                    raise ValueError('Adjacency list must be an iterable containing Connections')
         self.data = data
         self._uuid = u_random.random_uuid()
         self.connections = connections  # adjacency_list
@@ -150,7 +150,7 @@ class Graph(object):
         node_1 = self.get_node(data_or_node_1)
         node_2 = self.get_node(data_or_node_2)
         if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
-            raise Exception('Please provides nodes contained in the graph')
+            raise ValueError('Please provides nodes contained in the graph')
         node_1.add_connection(node_2, weight)
         if bidirectional:
             node_2.add_connection(node_1, weight)
@@ -159,7 +159,7 @@ class Graph(object):
         node_1 = self.get_node(data_or_node_1)
         node_2 = self.get_node(data_or_node_2)
         if node_1 is None or node_2 is None or node_1 not in self.nodes or node_2 not in self.nodes:
-            raise Exception('Please provides nodes contained in the graph')
+            raise ValueError('Please provides nodes contained in the graph')
         for i in range(len(node_1.connections)):
             if node_1.connections[i].node == node_2:
                 del node_1.connections[i]
@@ -191,7 +191,7 @@ class Graph(object):
     def get_first_node(self):
         # mandatory to run bfs and dfs
         if self._starting_node is None:
-            raise Exception('First node was not defined')
+            raise RuntimeError('First node was not defined')
         return self._starting_node
 
     def get_next_nodes(self):
@@ -217,7 +217,7 @@ class Graph(object):
     def _set_starting_node(self, starting_node_or_data):
         node = self.get_node(starting_node_or_data)
         if node is None or node not in self.nodes:
-            raise Exception('Please provides nodes contained in the graph')
+            raise ValueError('Please provides nodes contained in the graph')
         self._starting_node = node
 
     def __copy__(self):
@@ -258,7 +258,7 @@ class Graph(object):
                 if matrix[node_index_map[node]][node_index_map[conn.node]] == 0:
                     matrix[node_index_map[node]][node_index_map[conn.node]] = conn.weight
                 else:
-                    raise Exception('This node cannot be represented with a 2D matrix')
+                    raise RuntimeError('This node cannot be represented with a 2D matrix')
         return matrix, node_data_map
 
     def _has_circle_iter(self, get_circle=False):

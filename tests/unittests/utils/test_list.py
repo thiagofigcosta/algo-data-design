@@ -6,10 +6,10 @@ import algo_data_design.utils.list as u_list
 class ListTest(unittest.TestCase):
 
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_swap_elements(self, *args, **kwargs):
         a_list = [1, 2, 3]

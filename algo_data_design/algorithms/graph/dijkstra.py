@@ -8,7 +8,7 @@ def shortest_paths_cost(graph, starting_node_or_data, destination_node_or_data=N
     elif method == Method.REGULAR:
         return _shortest_paths_cost_standard(graph, starting_node_or_data, destination_node_or_data)
     else:
-        raise Exception(f'Unknown method {method}')
+        raise AttributeError(f'Unknown method {method}')
 
 
 def _shortest_paths_cost_standard(graph, starting_node_or_data, destination_node_or_data=None):

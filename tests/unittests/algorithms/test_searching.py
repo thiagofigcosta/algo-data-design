@@ -5,10 +5,10 @@ from algo_data_design.algorithms import searching
 
 class SearchingTest(unittest.TestCase):
     def setUp(self, *args, **kwargs):
-        pass
+        pass  # nothing to create
 
     def tearDown(self, *args, **kwargs):
-        pass
+        pass  # nothing to flush or destroy
 
     def test_linear_search_found(self, *args, **kwargs):
         array = [1, -2, 3, 4, -5, 6, 7, 8, -9, 0, 500, 2]
@@ -87,7 +87,6 @@ class SearchingTest(unittest.TestCase):
             self.assertEqual(_expected_grid_str, actual_matrix_str)
             self.assertEqual(_expected_path, path)
             self.assertAlmostEqual(_expected_path_cost, cost, 4)
-            pass
 
         original_grid = []  # 0 = obstacle, 1 = path, 2 = start, 3 = goal, 4 = a* path
         starting_point = (0, 0)
