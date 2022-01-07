@@ -56,7 +56,7 @@ def has_circle(graph):
     subsets = Subset.create_subsets(graph.nodes)  # add all nodes in a separated group
     for node_1 in graph.nodes:
         for node_2, _ in node_1.get_connections():
-            # construct the subsets based on the edges, if cannot unite there is a circle
+            # construct the subsets based on the edges, if cannot unite (they are already on same set) there is a circle
             if not union(subsets, node_1, node_2):
                 return True
     return False

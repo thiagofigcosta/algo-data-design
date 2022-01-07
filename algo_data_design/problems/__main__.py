@@ -28,6 +28,7 @@ def problems_info():
     i = print_problem_title(i, 'Longest Substring Without Repeating Characters')
     i = print_problem_title(i, 'Maximum Depth of Binary Tree')
     i = print_problem_title(i, 'Merge k Sorted Lists')
+    i = print_problem_title(i, 'Implement Trie (Prefix Tree)')
     if not algo_data_design.problems.NO_INFO:
         print()
     return i - 1
@@ -73,6 +74,8 @@ def main():
             maximum_depth_of_binary_tree.main()
         elif problem == 16:
             merge_k_sorted_lists.main()
+        elif problem == 17:
+            implement_trie.main()
         else:
             raise NotImplementedError('Unknown problem `{}`'.format(problem))
         if not algo_data_design.problems.NO_INFO:

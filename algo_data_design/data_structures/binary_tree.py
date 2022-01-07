@@ -8,7 +8,7 @@ class Node(object):
         self.data = data
         self.left = left
         self.right = right
-        self._uuid = u_random.random_uuid()
+        self._uuid = u_random.random_uuid()  # better to use uuid since it allows storage, for single run use id(self) or hex(id(self))
 
     def __str__(self):
         return str(self.data)

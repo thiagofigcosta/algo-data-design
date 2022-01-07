@@ -1,6 +1,7 @@
 from algo_data_design.problems import climbing_stairs
 from algo_data_design.problems import clone_graph
 from algo_data_design.problems import coin_change
+from algo_data_design.problems import implement_trie
 from algo_data_design.problems import insert_interval
 from algo_data_design.problems import longest_common_subsequence
 from algo_data_design.problems import longest_substring_without_repeating_characters

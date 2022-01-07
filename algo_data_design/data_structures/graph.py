@@ -25,7 +25,7 @@ class Node(object):
                 if not isinstance(el, Connection):
                     raise ValueError('Adjacency list must be an iterable containing Connections')
         self.data = data
-        self._uuid = u_random.random_uuid()
+        self._uuid = u_random.random_uuid()  # better to use uuid since it allows storage, for single run use id(self) or hex(id(self))
         self.connections = connections  # adjacency_list
 
     def __str__(self):

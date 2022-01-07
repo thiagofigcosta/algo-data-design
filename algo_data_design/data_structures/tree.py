@@ -9,7 +9,7 @@ class Node(object):
             branches = []
         self.data = data
         self.branches = branches
-        self._uuid = u_random.random_uuid()
+        self._uuid = u_random.random_uuid()  # better to use uuid since it allows storage, for single run use id(self) or hex(id(self))
 
     def __str__(self):
         return str(self.data)
