@@ -3,9 +3,10 @@ from enum import Enum, auto as enum_auto
 
 
 class PriorityQueueMethod(Enum):
-    LIST = enum_auto()
-    SORT = enum_auto()
-    HEAP = enum_auto() # the order of equal priorities is not guaranteed in heapq
+    LIST = enum_auto() # Push = O(n) | Pop (1)
+    SORT = enum_auto() # Push = O(1) | Pop (n*log(n)) | Pop without new elements O(1)
+    HEAP = enum_auto() # Push = O(log(n)) | Pop (log(n))
+    # the order of equal priorities is not guaranteed in heapq
 
     @staticmethod
     def get_all_methods():
