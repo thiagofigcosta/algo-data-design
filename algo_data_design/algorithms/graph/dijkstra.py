@@ -68,7 +68,8 @@ def _shortest_paths_cost_with_priority_queue(graph, starting_node_or_data, desti
     # instead of doing `not in distances` we could assign all distances to infinity at start
     starting_node = graph.get_node(starting_node_or_data)
     destination_node = None if destination_node_or_data is None else graph.get_node(destination_node_or_data)
-    open_list = PriorityQueue()  # this list stores the points to explore, the neighbors, the priority is the cost
+    open_list = PriorityQueue(max_queue=False)  # this list stores the points to explore, the neighbors, the priority
+    # is the cost
     distances = {}  # store the distances from the starting node, if a node is not here, the distance is infinite
 
     open_list.push(starting_node)  # start with the first node

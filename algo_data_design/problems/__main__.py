@@ -29,6 +29,9 @@ def problems_info():
     i = print_problem_title(i, 'Maximum Depth of Binary Tree')
     i = print_problem_title(i, 'Merge k Sorted Lists')
     i = print_problem_title(i, 'Implement Trie (Prefix Tree)')
+    i = print_problem_title(i, 'Design HashMap')
+    i = print_problem_title(i, 'Design HashSet')
+    i = print_problem_title(i, 'Path with Maximum Probability')
     if not algo_data_design.problems.NO_INFO:
         print()
     return i - 1
@@ -76,6 +79,12 @@ def main():
             merge_k_sorted_lists.main()
         elif problem == 17:
             implement_trie.main()
+        elif problem == 18:
+            design_hashmap.main()
+        elif problem == 19:
+            design_hashset.main()
+        elif problem == 20:
+            path_with_maximum_probability.main()
         else:
             raise NotImplementedError('Unknown problem `{}`'.format(problem))
         if not algo_data_design.problems.NO_INFO:

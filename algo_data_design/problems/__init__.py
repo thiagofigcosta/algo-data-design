@@ -1,6 +1,8 @@
 from algo_data_design.problems import climbing_stairs
 from algo_data_design.problems import clone_graph
 from algo_data_design.problems import coin_change
+from algo_data_design.problems import design_hashmap
+from algo_data_design.problems import design_hashset
 from algo_data_design.problems import implement_trie
 from algo_data_design.problems import insert_interval
 from algo_data_design.problems import longest_common_subsequence
@@ -9,6 +11,7 @@ from algo_data_design.problems import matching_parenthesis
 from algo_data_design.problems import maximum_depth_of_binary_tree
 from algo_data_design.problems import merge_k_sorted_lists
 from algo_data_design.problems import nth_fibonacci
+from algo_data_design.problems import path_with_maximum_probability
 from algo_data_design.problems import replace_words
 from algo_data_design.problems import reverse_linked_list
 from algo_data_design.problems import set_matrix_zeroes

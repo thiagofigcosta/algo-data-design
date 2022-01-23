@@ -1,5 +1,5 @@
 from .deque import Deque
-from .priority_queue import PriorityQueue
+from .priority_queue import PriorityQueue, PriorityQueueMethod
 from .queue import Queue
 from .ring_buffer import RingBuffer
 from .stack import Stack
