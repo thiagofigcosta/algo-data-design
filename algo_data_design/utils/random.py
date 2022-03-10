@@ -2,8 +2,11 @@ import random as rd
 import uuid
 
 
-def random_uuid():
-    return uuid.uuid4().hex
+def random_uuid(without_dashes=False):
+    if without_dashes:
+        return uuid.uuid4().hex
+    else:
+        return str(uuid.uuid4())
 
 
 def random_int(lower_limit=-65535, upper_limit=65535):

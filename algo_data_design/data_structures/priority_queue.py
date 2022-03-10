@@ -3,9 +3,9 @@ from enum import Enum, auto as enum_auto
 
 
 class PriorityQueueMethod(Enum):
-    LIST = enum_auto() # Push = O(n) | Pop (1)
-    SORT = enum_auto() # Push = O(1) | Pop (n*log(n)) | Pop without new elements O(1)
-    HEAP = enum_auto() # Push = O(log(n)) | Pop (log(n))
+    LIST = enum_auto()  # Push = O(n) | Pop (1)
+    SORT = enum_auto()  # Push = O(1) | Pop (n*log(n)) | Pop without new elements O(1)
+    HEAP = enum_auto()  # Push = O(log(n)) | Pop (log(n))
     # the order of equal priorities is not guaranteed in heapq
 
     @staticmethod
@@ -23,6 +23,7 @@ class PriorityQueueMethod(Enum):
         other_dict = other.__dict__
         return self_dict['_value_'] == other_dict['_value_'] and str(self_dict['__objclass__']) == str(
             other_dict['__objclass__'])
+
 
 class PriorityQueueNode(object):
     # created to avoid using tuples on heapq since a given value of custom class might not implement the __lt__ function

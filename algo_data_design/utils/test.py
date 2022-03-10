@@ -9,6 +9,11 @@ def call(callable_function, **mocked_custom_kwargs):
 
 
 def set_global_mocked_kwargs(**mocked_custom_kwargs):
+    clear_global_mocked_kwargs()
+    STATEFUL_TEST_KWARGS.update(mocked_custom_kwargs)
+
+
+def add_global_mocked_kwargs(**mocked_custom_kwargs):
     STATEFUL_TEST_KWARGS.update(mocked_custom_kwargs)
 
 
