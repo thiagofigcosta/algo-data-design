@@ -15,6 +15,9 @@ def _shortest_paths_cost_standard(graph, starting_node_or_data, destination_node
     """
     Algorithm with hard spelling, that is used to find the shortest path between a node and all other
     Time Complexity: O(v^2), where v=vertices and e=edges
+                - Using binary heap: O(e log v)
+                - Using fibonacci heap: O(e + v log v)
+                - If sparse: O(v^3)
     Space Complexity: O(v)
     """
     # instead of doing `not in distances` we could assign all distances to infinity at start
