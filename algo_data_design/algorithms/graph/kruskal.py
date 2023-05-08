@@ -11,7 +11,7 @@ def minimum_spanning_tree(graph, get_cost=False, get_tree=True):
         - Circuit / Network design
         - Cluster Analysis
     Indicated for: Sparse graphs
-    Time Complexity: O(v*log(v)), where v=vertices and e=edges
+    Time Complexity: O(e*log(e)), where v=vertices and e=edges
     Space Complexity: O(e+v)
     """
     forest = UnionFindSubset.create_subsets(graph.nodes)  # auxiliary structure to detect circles, using union-find
