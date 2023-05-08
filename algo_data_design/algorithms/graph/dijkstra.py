@@ -17,6 +17,7 @@ def _shortest_paths_cost_standard(graph, starting_node_or_data, destination_node
     Time Complexity: O(v^2), where v=vertices and e=edges
                 - Using binary heap: O(e log v)
                 - Using fibonacci heap: O(e + v log v)
+                - Using priority queue: ??
                 - If sparse: O(v^3)
     Space Complexity: O(v)
     """
