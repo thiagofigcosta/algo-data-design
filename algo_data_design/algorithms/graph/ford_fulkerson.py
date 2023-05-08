@@ -4,7 +4,8 @@ from algo_data_design.data_structures import Queue
 def maximum_flow(graph, starting_node_or_data, destination_node_or_data, preserve_graph=True):
     """
     Algorithm to compute the maximum flow between two points of graph
-    Time Complexity: O(e*f), where f=maximum flow and e=edges
+    Time Complexity: O(e*f), where f=maximum flow, e=edges and v=vertices
+             - Using BFS (edmonds-karp algorithm): O(ve^2)
     Space Complexity: O(v), where v=vertices
     """
     if preserve_graph:  # the residual graph will change, so we might want to copy the original
@@ -29,6 +30,7 @@ def maximum_flow(graph, starting_node_or_data, destination_node_or_data, preserv
     return max_flow
 
 
+# When we use BFS as the path method ford fulkerson algorithm becomes the edmonds-karp algorithm
 def _breadth_first_search_path_find(source, destination, parent):
     # standard BFS that returns true when there is available path between src and dst
     # also fills parent with the current path and available flux
