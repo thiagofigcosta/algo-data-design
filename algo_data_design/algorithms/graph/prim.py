@@ -10,7 +10,9 @@ def minimum_spanning_tree(graph, get_cost=False, get_tree=True):
         - Circuit / Network design
         - Cluster Analysis
     Indicated for: Dense graphs
-    Time Complexity: O(e*log(v)), where v=vertices and e=edges
+    Time Complexity: O(vˆ2), where v=vertices and e=edges
+             - Using binary heap: O(e log v)
+             - Using fibonacci heap: O(e + v log v)
     Space Complexity: O(e+v)
     """
     nodes_in_the_tree = set()  # set of the nodes in the tree
@@ -22,14 +24,13 @@ def minimum_spanning_tree(graph, get_cost=False, get_tree=True):
     while len(nodes_in_the_tree) + unreachable_elements < len(graph):
         minimum_edge = []
         minimum_node = None
-        for node in graph.get_nodes():
-            if node in nodes_in_the_tree:  # we filter to pick only edges of vertices contained in the tree
-                for neighbor, weight in node.get_connections():
-                    if neighbor not in nodes_in_the_tree:  # we don't want circles
-                        # if is the first or this edge is smaller pick it
-                        if minimum_node is None or weight < minimum_edge[0]:
-                            minimum_edge = [weight, neighbor]
-                            minimum_node = node
+        for node in nodes_in_the_tree: # we want connections between nodes already in MST with nodes not yet on it
+            for neighbor, weight in node.get_connections():
+                if neighbor not in nodes_in_the_tree:  # we don't want circles
+                    # if is the first or this edge is smaller pick it
+                    if minimum_node is None or weight < minimum_edge[0]:
+                        minimum_edge = [weight, neighbor]
+                        minimum_node = node
         if minimum_node is None:
             unreachable_elements += 1
         else:
