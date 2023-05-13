@@ -76,7 +76,7 @@ def _shortest_paths_cost_with_priority_queue(graph, starting_node_or_data, desti
     # is the cost
     distances = {}  # store the distances from the starting node, if a node is not here, the distance is infinite
 
-    # TODO we should have a `visited` here, and only add to queue if not
+    # TODO should we should have a `visited` here, and only add to queue if not (mark as unvisited right before endind the while)?
     
     open_list.push(starting_node)  # start with the first node
     distances[starting_node] = 0  # there is not cost of staying in the same place
