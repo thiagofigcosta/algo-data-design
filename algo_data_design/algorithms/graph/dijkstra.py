@@ -75,7 +75,7 @@ def _shortest_paths_cost_with_priority_queue(graph, starting_node_or_data, desti
     open_list = PriorityQueue(max_queue=False)  # this list stores the points to explore, the neighbors, the priority
     # is the cost
     distances = {}  # store the distances from the starting node, if a node is not here, the distance is infinite
-
+    visited = set() # elements should be added on queue at most once
     # TODO should we should have a `visited` here, and only add to queue if not (mark as unvisited right before endind the while)?
     
     open_list.push(starting_node)  # start with the first node
@@ -83,12 +83,14 @@ def _shortest_paths_cost_with_priority_queue(graph, starting_node_or_data, desti
     while not open_list.is_empty():  # while there is nodes to explore
         closest_node, path_distance = open_list.pop(retrieve_priority=True)
         for neighbor, neighbor_distance in closest_node.get_connections():
-            # check the distances between the neighbor and the origin
-            neighbor_distance_from_origin = path_distance + neighbor_distance
-            # if I don't know this path or if this path is better than the one we knew update it on distances table
-            if neighbor not in distances or neighbor_distance_from_origin < distances[neighbor]:
-                distances[neighbor] = neighbor_distance_from_origin  # updating the distance
-                open_list.push(neighbor, neighbor_distance_from_origin)  # add neighbor on priority queue
+            if neighbor not in visited:
+                visited.add(neighbor)  # mark the node as visited
+                # check the distances between the neighbor and the origin
+                neighbor_distance_from_origin = path_distance + neighbor_distance
+                # if I don't know this path or if this path is better than the one we knew update it on distances table
+                if neighbor not in distances or neighbor_distance_from_origin < distances[neighbor]:
+                    distances[neighbor] = neighbor_distance_from_origin  # updating the distance
+                    open_list.push(neighbor, neighbor_distance_from_origin)  # add neighbor on priority queue
 
     if destination_node is not None:
         return distances[destination_node]
