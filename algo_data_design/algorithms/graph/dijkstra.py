@@ -81,15 +81,16 @@ def _shortest_paths_cost_with_priority_queue(graph, starting_node_or_data, desti
     distances[starting_node] = 0  # there is not cost of staying in the same place
     while not open_list.is_empty():  # while there is nodes to explore
         closest_node, path_distance = open_list.pop(retrieve_priority=True)
+        visited.add(closest_node)  # mark the node as visited
         for neighbor, neighbor_distance in closest_node.get_connections():
+            if neighbor in visited:
+                continue
             # check the distances between the neighbor and the origin
             neighbor_distance_from_origin = path_distance + neighbor_distance
             # if I don't know this path or if this path is better than the one we knew update it on distances table
             if neighbor not in distances or neighbor_distance_from_origin < distances[neighbor]:
                 distances[neighbor] = neighbor_distance_from_origin  # updating the distance
-                if neighbor not in visited:
-                    visited.add(neighbor)  # mark the node as visited
-                    open_list.push(neighbor, neighbor_distance_from_origin)  # add neighbor on priority queue
+                open_list.push(neighbor, neighbor_distance_from_origin)  # add neighbor on priority queue
 
     if destination_node is not None:
         return distances[destination_node]
